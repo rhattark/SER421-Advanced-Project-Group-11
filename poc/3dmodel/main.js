@@ -20,7 +20,7 @@ document.body.appendChild(renderer.domElement);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 const loader = new GLTFLoader();
-const modelPath = 'merc/scene.gltf';
+const carPath = 'merc/scene.gltf';
 
 // add floor below the car
 const floorGeometry = new THREE.CircleGeometry(80, 360);
@@ -45,28 +45,28 @@ const floorTexture = new THREE.TextureLoader().load('textured-floor.avif', () =>
 camera.position.y += 1; // Raise the camera slightly to see the floor
 
 
-function setCameraPositionForModel(model) {
-    const boundingBox = new THREE.Box3().setFromObject(model);
+function setCameraPositionForCar(car) {
+    const boundingBox = new THREE.Box3().setFromObject(car);
     const center = boundingBox.getCenter(new THREE.Vector3());
 
-    // Set the camera position based on the model's bounding box
+    // Set the camera position based on the car's bounding box
     camera.position.copy(center);
     camera.position.z += boundingBox.max.z + 30;
     camera.position.y = 50;
     camera.position.x = -200;
 
-    // Optionally, you can adjust the orbit controls target to center on the model
+    // Optionally, you can adjust the orbit controls target to center on the car
     controls.target.copy(center);
 }
 
 loader.load(
     // resource URL
-    modelPath,
+    carPath,
     // called when the resource is loaded
     (gltf) => {
-        const model = gltf.scene;
-        scene.add(model);
-        setCameraPositionForModel(model);
+        const car = gltf.scene;
+        scene.add(car);
+        setCameraPositionForCar(car);
         renderer.render(scene, camera);
     },
     // called while loading is progressing
@@ -75,11 +75,12 @@ loader.load(
     },
     // called when loading has errors
     (error) => {
-        console.error('Error loading model', error);
+        console.error('Error loading car', error);
     }
 );
 
 function animate() {
+
     controls.update();
     renderer.render(scene, camera);
     requestAnimationFrame(animate);
