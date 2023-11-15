@@ -51,7 +51,9 @@ function setCameraPositionForModel(model) {
 
     // Set the camera position based on the model's bounding box
     camera.position.copy(center);
-    camera.position.z += boundingBox.max.z + 100;
+    camera.position.z += boundingBox.max.z + 30;
+    camera.position.y = 50;
+    camera.position.x = -200;
 
     // Optionally, you can adjust the orbit controls target to center on the model
     controls.target.copy(center);
