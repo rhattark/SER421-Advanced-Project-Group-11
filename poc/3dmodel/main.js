@@ -22,13 +22,36 @@ const controls = new OrbitControls(camera, renderer.domElement);
 const loader = new GLTFLoader();
 const modelPath = 'merc/scene.gltf';
 
+// add floor below the car
+const floorGeometry = new THREE.CircleGeometry(80, 360);
+
+const floorMaterial = new THREE.MeshStandardMaterial({
+    color: 0xcccccc,
+    side: THREE.DoubleSide,
+});
+
+const floorMesh = new THREE.Mesh(floorGeometry, floorMaterial);
+floorMesh.position.z = 40; // Position the floor slightly below the car
+floorMesh.position.x = -60;
+floorMesh.rotation.x = -Math.PI / 2;
+scene.add(floorMesh);
+
+const floorTexture = new THREE.TextureLoader().load('textured-floor.avif', () => {
+    // This callback ensures the texture is loaded before rendering
+    floorMaterial.map = floorTexture;
+    floorMaterial.needsUpdate = true;
+});
+
+camera.position.y += 1; // Raise the camera slightly to see the floor
+
+
 function setCameraPositionForModel(model) {
     const boundingBox = new THREE.Box3().setFromObject(model);
     const center = boundingBox.getCenter(new THREE.Vector3());
 
     // Set the camera position based on the model's bounding box
     camera.position.copy(center);
-    camera.position.z += boundingBox.max.z;
+    camera.position.z += boundingBox.max.z + 100;
 
     // Optionally, you can adjust the orbit controls target to center on the model
     controls.target.copy(center);
