@@ -1,6 +1,9 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { TTFLoader } from 'three/examples/jsm/loaders/TTFLoader.js';
+import { Font } from 'three/examples/jsm/loaders/FontLoader.js';
+import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -119,7 +122,57 @@ for (let i = 0; i < 100; i++) {
     );
 }
 
+// Load 3d text
+const ttfLoader = new TTFLoader();
+
+// Load the TTF font file from Fontsource CDN. Can also be the link to font file from Google Fonts
+ttfLoader.load('fonts/Cardo-Regular.ttf', (fontData) => {
+    // Convert the parsed fontData to the format Three.js understands
+    const font = new Font(fontData);
+
+    // Create the text geometry
+    const textGeometry = new TextGeometry('G-Class', {
+        font: font,
+        size: 15,
+        height: 5,
+        curveSegments: 32,
+        bevelEnabled: true,
+        bevelThickness: 0.5,
+        bevelSize: 0.5,
+        bevelSegments: 8,
+    });
+    textGeometry.center();
+
+    // Create a standard material with red color and 50% gloss
+    const material = new THREE.MeshStandardMaterial({
+        color: 'lightgrey',
+        roughness: 0.5
+    });
+
+    // Geometries are attached to meshes so that they get rendered
+    const textMesh = new THREE.Mesh(textGeometry, material);
+    // Update positioning of the text
+    textMesh.position.set(-60, 80, -40);
+    textMesh.rotateY(-Math.PI * 0.25)
+    scene.add(textMesh);
+
+    // Add a directional light to illuminate the text mesh
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // White light
+    directionalLight.position.set(5, 10, 5);
+    scene.add(directionalLight);
+});
+
 const clock = new THREE.Clock();
+
+window.addEventListener('resize', () => {
+    const newWidth = window.innerWidth;
+    const newHeight = window.innerHeight;
+
+    camera.aspect = newWidth / newHeight;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(newWidth, newHeight);
+});
 
 function animate() {
     const elapsedTime = clock.getElapsedTime();
