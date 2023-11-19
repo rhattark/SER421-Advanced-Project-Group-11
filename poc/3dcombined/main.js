@@ -97,7 +97,9 @@ const logoPath = 'logo/mercedes_logo/scene.gltf';
 const spread = 500;
 let logos = []
 
+// loop 100 times to display 100 logos in random places around the car
 for (let i = 0; i < 100; i++) {
+    // Load the gltf 3d model of the mercedes logo
     loader.load(
         // resource URL
         logoPath,
@@ -168,20 +170,28 @@ ttfLoader.load('fonts/Cardo-Regular.ttf', (fontData) => {
     scene.add(directionalLight);
 });
 
+// Create a new Clock object to manage time-related functionality for animations
 const clock = new THREE.Clock();
 
+// Event listener for window resize events to ensure the scene adjusts to the new window dimensions
 window.addEventListener('resize', () => {
+    // Obtain the new width and height of the window
     const newWidth = window.innerWidth;
     const newHeight = window.innerHeight;
 
+    // Adjust the camera's aspect ratio based on the new dimensions
     camera.aspect = newWidth / newHeight;
+
+    // Update the camera's projection matrix to reflect the changes
     camera.updateProjectionMatrix();
 
+    // Resize the renderer to match the new window dimensions
     renderer.setSize(newWidth, newHeight);
 });
 
 // setup animation loop
 function animate() {
+    // Calculate the elapsed time since the start of the animation using the Clock object
     const elapsedTime = clock.getElapsedTime();
 
     // change rotation of all logos
