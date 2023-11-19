@@ -81,7 +81,53 @@ loader.load(
     }
 );
 
+// Load mercedes logo
+const logoPath = 'logo/mercedes_logo/scene.gltf';
+
+// multiple boxes
+const spread = 500;
+let logos = []
+
+for (let i = 0; i < 100; i++) {
+    loader.load(
+        // resource URL
+        logoPath,
+        // called when the resource is loaded
+        (gltf) => {
+            const logo = gltf.scene;
+
+            logo.position.x = (Math.random() - 0.5) * spread;
+            logo.position.y = (Math.random() - 0.5) * spread;
+            logo.position.z = (Math.random() - 0.5) * spread;
+            logo.rotation.x = Math.random() * Math.PI;
+            logo.rotation.y = Math.random() * Math.PI;
+            const scale = Math.random() + 20;
+            logo.scale.set(scale, scale, scale);
+            logos.push(logo);
+            scene.add(logo);
+            
+            renderer.render(scene, camera);
+        },
+        // called while loading is progressing
+        (xhr) => {
+            console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+        },
+        // called when loading has errors
+        (error) => {
+            console.error('Error loading logo', error);
+        }
+    );
+}
+
+const clock = new THREE.Clock();
+
 function animate() {
+    const elapsedTime = clock.getElapsedTime();
+
+    logos.forEach((logo) => {
+        logo.rotation.x = elapsedTime;
+        logo.rotation.y = elapsedTime;
+    });
 
     controls.update();
     renderer.render(scene, camera);
