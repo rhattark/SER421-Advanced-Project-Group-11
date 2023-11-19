@@ -4,23 +4,39 @@ import { TTFLoader } from 'three/examples/jsm/loaders/TTFLoader.js';
 import { Font } from 'three/examples/jsm/loaders/FontLoader.js';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 
-// source: https://akashhamirwasia.com/blog/create-stunning-3D-text-with-custom-fonts-in-threejs/#mesh-and-material
-
 // scene and camera setup
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.z = 50; // Position the camera closer to the text mesh
 
+// camera positioning
+camera.position.z = 50;
+camera.position.y += 1; // Raise the camera slightly to see the floor
+
+// setup renderer
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setClearColor(0x000000, 1); // Set background color to black
+renderer.setClearColor(0x000000, 1);
+
+// add renderer to html
 document.body.appendChild(renderer.domElement);
 
+// orbit controls to move 3d object with mouse
 const controls = new OrbitControls(camera, renderer.domElement);
 
+// light setup
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+scene.add(ambientLight);
+
+// Add a directional light to cast shadows
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+directionalLight.position.set(5, 5, 5);
+directionalLight.castShadow = true;
+scene.add(directionalLight);
+
+// Load 3d text
 const ttfLoader = new TTFLoader();
 
-// Load the TTF font file from Fontsource CDN. Can also be the link to font file from Google Fonts
+// Load the TTF font file from public/fonts directory
 ttfLoader.load('fonts/Cardo-Regular.ttf', (fontData) => {
     // Convert the parsed fontData to the format Three.js understands
     const font = new Font(fontData);
@@ -46,7 +62,7 @@ ttfLoader.load('fonts/Cardo-Regular.ttf', (fontData) => {
 
     // Geometries are attached to meshes so that they get rendered
     const textMesh = new THREE.Mesh(textGeometry, material);
-    // Update positioning of the text
+    // Update positioning of the text - this will change once added to combined page
     textMesh.position.set(0, 0, 0);
     scene.add(textMesh);
 
@@ -56,24 +72,14 @@ ttfLoader.load('fonts/Cardo-Regular.ttf', (fontData) => {
     scene.add(directionalLight);
 });
 
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.2); // Soft white ambient light
-scene.add(ambientLight);
-
-window.addEventListener('resize', () => {
-    const newWidth = window.innerWidth;
-    const newHeight = window.innerHeight;
-
-    camera.aspect = newWidth / newHeight;
-    camera.updateProjectionMatrix();
-
-    renderer.setSize(newWidth, newHeight);
-});
-
 // Render the scene using the renderer
 function animate() {
-    requestAnimationFrame(animate);
+    // Updates the controls to handle user input.
     controls.update();
+    // Renders the scene using the specified camera and renderer. 
     renderer.render(scene, camera);
+    // Requests the next animation frame to create a continuous loop. 
+    requestAnimationFrame(animate);
 }
 
 animate();
