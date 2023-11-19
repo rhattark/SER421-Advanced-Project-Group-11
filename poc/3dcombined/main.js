@@ -133,7 +133,7 @@ for (let i = 0; i < 100; i++) {
 // Load 3d text
 const ttfLoader = new TTFLoader();
 
-// Load the TTF font file from Fontsource CDN. Can also be the link to font file from Google Fonts
+// Load the TTF font file from public/fonts directory
 ttfLoader.load('fonts/Cardo-Regular.ttf', (fontData) => {
     // Convert the parsed fontData to the format Three.js understands
     const font = new Font(fontData);
