@@ -1,0 +1,68 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1em;
+}
+
+nav {
+    background-color: #444;
+    color: #fff;
+    padding: 0.5em;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fff;
+}
+
+#car-colors {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.color-box {
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+
+section {
+    padding: 2em;
+    margin-bottom: 20px; /* Add a margin at the bottom of each section */
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1em;
+    bottom: 0;
+    width: 100%;
+}
+
+
+
+/* Add more specific styling as needed */

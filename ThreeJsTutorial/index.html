@@ -3,11 +3,97 @@
 	<head>
 		<meta charset="utf-8">
 		<title>My first three.js app</title>
-		<style>
-			body { margin: 0; }
-		</style>
+		<link rel="stylesheet" href="styles.css">
 	</head>
 	<body>
+		<header>
+			<h1>3D Rendering</h1>
+			<p>SER 421</p>
+		</header>
+		<nav>
+			<ul>
+				<li><a href="#real-time">3D View</a></li>
+				<li><a href="#car-models">Models</a></li>
+				<li><a href="#car-features">Features</a></li>
+				<li><a href="#car-configuration">Configuration</a></li>
+				<li><a href="#car-specifications">Specifications</a></li>
+				<li><a href="#car-colors">Colors</a></li>
+			</ul>
+		</nav>
+	
+		<div id="3d-model-container"></div>
+	
+	<section id="car-models">
+		<h2>Car Models</h2>
+		<p>Explore our range of cutting-edge car models designed to meet the diverse needs of our customers. From compact and fuel-efficient options to powerful SUVs, we have a model for every lifestyle.</p>
+		<ul>
+			<li>Sedan</li>
+			<li>SUV</li>
+			<li>Hatchback</li>
+		</ul>
+	</section>
+	
+	<section id="car-configuration">
+		<h2>Car Configuration</h2>
+		<div>
+			<h3>Interior Features</h3>
+			<p>Our cars offer a luxurious driving experience with premium interior features. Enjoy comfortable seating, advanced infotainment systems, and smart connectivity options.</p>
+		</div>
+		<div>
+			<h3>Exterior Options</h3>
+			<p>Personalize your car with a range of exterior options. Choose from different paint colors, alloy wheels, and stylish accessories to make your vehicle uniquely yours.</p>
+		</div>
+	</section>
+	
+	<section id="car-specifications">
+		<h2>Car Specifications</h2>
+		<div>
+			<h3>Engine Performance</h3>
+			<p>Experience powerful performance with our high-performance engines. Our vehicles are designed to deliver a thrilling driving experience while maintaining fuel efficiency.</p>
+		</div>
+		<div>
+			<h3>Safety Features</h3>
+			<p>Your safety is our priority. Our cars come equipped with advanced safety features, including intelligent collision detection, adaptive cruise control, and more.</p>
+		</div>
+	</section>
+	
+	<section id="car-features">
+		<h2>Car Features</h2>
+		<ul>
+			<li>Advanced GPS Navigation System</li>
+			<li>Smart Cruise Control for a Relaxing Drive</li>
+			<li>Intelligent Collision Detection and Avoidance</li>
+			<li>Luxurious Leather Interior with Heated Seats</li>
+			<li>High-Performance Engine with Eco-Friendly Options</li>
+		</ul>
+		<p>Explore the advanced features that set our cars apart. Whether it's the state-of-the-art entertainment system or the eco-friendly engine options, our vehicles are designed with your needs in mind.</p>
+	</section>
+	
+	
+	<section id="car-colors">
+		<h2>Car Colors</h2>
+		<div class="color-box" style="background-color: #FFFFFF;"></div> 
+		<div class="color-box" style="background-color: #000000;"></div> 
+		<div class="color-box" style="background-color: #FF0000;"></div> 
+		<div class="color-box" style="background-color: #808080;"></div> 
+		<div class="color-box" style="background-color: #FFFF00;"></div> 
+	</section>
+	
+		<footer>
+			<p>&copy; SER 421 Project </p>
+		</footer>
+	
+		<script>
+			document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+				anchor.addEventListener('click', function (e) {
+					e.preventDefault();
+	
+					document.querySelector(this.getAttribute('href')).scrollIntoView({
+						behavior: 'smooth'
+					});
+				});
+			});
+		</script>
 		<script type="module" src="/main.js"></script>
 	</body>
 </html>
