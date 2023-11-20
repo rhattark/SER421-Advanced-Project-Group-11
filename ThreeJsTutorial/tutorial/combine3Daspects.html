@@ -361,6 +361,63 @@
             </code>
         </pre>
     </section>
+
+    <section id="3d_text">
+        <h2>Add 3d text of car name</h2>
+        <p>
+            <ul>
+                <li>Load the Cardo-Regular.ttf font file using the TTFLoader.</li>
+                <li>Create 3D text geometry using the loaded font.</li>
+                <li>Create a red-colored standard material with 50% gloss.</li>
+                <li>Attach the geometry to a mesh and position it above the car.</li>
+                <li>Add a directional light to illuminate the text mesh.</li>
+                <li>You can download other fonts from <a href="https://fonts.google.com/">Google Fonts</a></li>
+            </ul>
+        </p>
+        <pre>
+            <code class="language-js">
+                // Load 3d text
+                const ttfLoader = new TTFLoader();
+
+                // Load the TTF font file from public/fonts directory
+                ttfLoader.load('fonts/Cardo-Regular.ttf', (fontData) => {
+                    // Convert the parsed fontData to the format Three.js understands
+                    const font = new Font(fontData);
+
+                    // Create the text geometry
+                    const textGeometry = new TextGeometry('G-Class', {
+                        font: font,
+                        size: 15,
+                        height: 5,
+                        curveSegments: 32,
+                        bevelEnabled: true,
+                        bevelThickness: 0.5,
+                        bevelSize: 0.5,
+                        bevelSegments: 8,
+                    });
+                    textGeometry.center();
+
+                    // Create a standard material with red color and 50% gloss
+                    const material = new THREE.MeshStandardMaterial({
+                        color: 'lightgrey',
+                        roughness: 0.5
+                    });
+
+                    // Geometries are attached to meshes so that they get rendered
+                    const textMesh = new THREE.Mesh(textGeometry, material);
+                    // Update positioning of the text
+                    textMesh.position.set(-60, 80, -40);
+                    textMesh.rotateY(-Math.PI * 0.25)
+                    scene.add(textMesh);
+
+                    // Add a directional light to illuminate the text mesh
+                    const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // White light
+                    directionalLight.position.set(5, 10, 5);
+                    scene.add(directionalLight);
+                });
+            </code>
+        </pre>
+    </section>
 </body>
 
 </html>
