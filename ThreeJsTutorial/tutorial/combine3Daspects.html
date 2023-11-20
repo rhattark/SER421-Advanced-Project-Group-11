@@ -268,6 +268,43 @@
             </code>
         </pre>
     </section>
+
+    <section id="load_car">
+        <h2>Load Car GLTF 3d Model</h2>
+        <p>
+            <ul>
+                <li>Use the GLTFLoader to load the car model from the specified URL.</li>
+                <li>Once the model is loaded, add it to the scene and update the camera position to focus on the car.</li>
+                <li>Display the rendered scene using the renderer.</li>
+                <li>Provide progress updates during loading.</li>
+                <li>Handle any loading errors.</li>
+            </ul>              
+        </p>
+        <pre>
+            <code class="language-js">
+                // Load the gltf 3d model of the car
+                loader.load(
+                    // resource URL
+                    carPath,
+                    // called when the resource is loaded
+                    (gltf) => {
+                        const car = gltf.scene;
+                        scene.add(car);
+                        setCameraPositionForCar(car);
+                        renderer.render(scene, camera);
+                    },
+                    // called while loading is progressing
+                    (xhr) => {
+                        console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+                    },
+                    // called when loading has errors
+                    (error) => {
+                        console.error('Error loading car', error);
+                    }
+                );
+            </code>
+        </pre>
+    </section>
 </body>
 
 </html>
