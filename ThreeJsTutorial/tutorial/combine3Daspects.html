@@ -4,6 +4,8 @@
 <head>
     <meta charset="utf-8" />
     <title>Combine 3D aspects</title>
+    <link href="../prism.css" rel="stylesheet">
+    <script src="../prism.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -26,6 +28,207 @@
 </head>
 <body>
     <h1>Combine 3D aspects</h1>
-    <h2>In one page</h2>
+    <p>Now it's time to combine everything we did before into a single 3d scene. We will start with the prerequisites and then go on and combine everything in main.js.</p>
+    <section id="prerequisites">
+        <h2>Prerequisites</h2>
+        <p>
+            Before we begin this part of the tutorial, we need to setup the environment. This is assuming that node is already installed. 
+            <br>
+            Run the following commands in order to install three.js and vite. Vite will be used to run the server and three js is required for 3d.
+            <br>
+            <ul>
+                <li>> npm install three</li>
+                <li>> npm install vite</li>
+            </ul>
+        </p>
+        <p>
+            Once the code is written, the following command can be run to start the server.
+        </p>
+        <ul>
+            <li>> npx vite</li>
+        </ul>
+        <p>
+            Create the following 2 pages:
+            <ul>
+                <li>index.html</li>
+                <li>main.js</li>
+            </ul>
+        </p>
+        <h4>
+            index.html
+        </h4>
+        <p>
+            This HTML document sets up a basic webpage with a title, removes default body margins using CSS, and includes an external JavaScript module ("main.js") for additional functionality. The JavaScript module is expected to handle the 3D background proof of concept (POC) logic.
+        </p>
+        <pre>
+            <code class="language-html">
+                &lt;!DOCTYPE html&gt;
+                &lt;html lang=&quot;en&quot;&gt;
+                    &lt;head&gt;
+                        &lt;meta charset=&quot;utf-8&quot;&gt;
+                        &lt;title&gt;All 3d parts combined&lt;/title&gt;
+                        &lt;style&gt;
+                            body { margin: 0; }
+                        &lt;/style&gt;
+                    &lt;/head&gt;
+                    &lt;body&gt;
+                        &lt;script type=&quot;module&quot; src=&quot;/main.js&quot;&gt;&lt;/script&gt;
+                    &lt;/body&gt;
+                &lt;/html&gt;
+            </code>
+        </pre>
+    </section>
+    <h4>main.js</h4>
+    <section id="import_libraries">
+        <h2>Import libraries</h2>
+        <p>
+            This section imports the Three.js library and required modules for creating a 3D scene, handling camera movement, loading 3D models, and 3d text.
+            <br>First import imports the Three.js library for 3D graphics in web browsers.
+            <br>Next one imports OrbitControls for interactive controls like rotating, panning, and zooming.
+            <br>And the next one imports GLTFLoader for loading and rendering 3D models in GLTF format.
+            <br>Next one imports TTFLoader for loading and parsing TrueType Fonts (TTF).
+            <br>The last one imports Font and TextGeometry for loading and generating 3D text meshes.
+        </p>
+        <pre>
+            <code class="language-js">
+                import * as THREE from 'three';
+                import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+                import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+                import { TTFLoader } from 'three/examples/jsm/loaders/TTFLoader.js';
+                import { Font } from 'three/examples/jsm/loaders/FontLoader.js';
+                import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
+            </code>
+        </pre>
+    </section>
+    
+    <section id="scene_and_camera">
+        <h2>Setup Scene and Camera</h2>
+        <p>
+            We create a new scene using the THREE.Scene() constructor.
+            <br>Create a perspective camera using THREE.PerspectiveCamera(), specifying the field of view, aspect ratio, near, and far clipping planes.
+            <br>We position the camera 50 units behind the scene's origin.
+            <br>Slightly raise the camera's position along the Y-axis to better view the scene's floor.
+        </p>
+        <pre>
+            <code class="language-js">
+                // scene and camera setup
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+                // camera positioning
+                camera.position.z = 50;
+                camera.position.y += 1; // Raise the camera slightly to see the floor
+            </code>
+        </pre>
+    </section>
+
+    <section id="renderer">
+        <h2>Setup renderer</h2>
+        <p>
+            Here, we create a WebGL renderer using THREE.WebGLRenderer().
+            <br>Set the renderer's size to match the browser window's width and height.
+            <br>Set the renderer's background color to black with an opacity of 1.
+            <br>We append the renderer's DOM element to the body of the HTML document.
+        </p>
+        <pre>
+            <code class="language-js">
+                // setup renderer
+                const renderer = new THREE.WebGLRenderer();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setClearColor(0x000000, 1);
+
+                // add renderer to html
+                document.body.appendChild(renderer.domElement);
+            </code>
+        </pre>
+    </section>
+
+    <section id="orbit_controls">
+        <h2>Add orbit controls</h2>
+        <p>
+            We create an OrbitControls object to enable interactive camera controls using the mouse.
+            <br>We pass the camera and the renderer's DOM element as parameters to the OrbitControls constructor.
+            <br>This allows us to rotate, pan, and zoom the 3D scene using the mouse.
+        </p>
+        <pre>
+            <code class="language-js">
+                // orbit controls to move 3d object with mouse
+                const controls = new OrbitControls(camera, renderer.domElement);
+            </code>
+        </pre>
+    </section>
+
+    <section id="lights">
+        <h2>Setup lights</h2>
+        <p>
+            We create an ambient light using THREE.AmbientLight(), setting its color to white and intensity to 0.2.
+            <br>Add the ambient light to the scene using scene.add().
+            <br>Create a directional light using THREE.DirectionalLight(), setting its color to white and intensity to 1.
+            <br>Position the directional light using directionalLight.position.set(), placing it at coordinates (5, 5, 5).
+            <br>Enable shadow casting for the directional light using directionalLight.castShadow = true.
+            <br>Add the directional light to the scene using scene.add().
+        </p>
+        <pre>
+            <code class="language-js">
+                // light setup
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+                scene.add(ambientLight);
+
+                // Add a directional light to cast shadows
+                const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+                directionalLight.position.set(5, 5, 5);
+                directionalLight.castShadow = true;
+                scene.add(directionalLight);
+            </code>
+        </pre>
+    </section>
+
+    <section id="floor">
+        <h2>Add Floor below the car</h2>
+        <p>
+            Create a circular plane geometry using THREE.CircleGeometry() with radius 80 and segments 360.
+            <br>Load the floor texture using THREE.TextureLoader(), specifying the texture's URL.
+            <br>Create a basic material using THREE.MeshBasicMaterial() and apply the loaded texture.
+            <br>Combine the floor geometry and material into a mesh using THREE.Mesh().
+            <br>Position the floor mesh slightly below the car's position and rotate it to lie flat on the ground.
+            <br>Add the floor mesh to the scene using scene.add().
+        </p>
+        <pre>
+            <code class="language-js">
+                // add floor below the car
+                const floorGeometry = new THREE.CircleGeometry(80, 360);
+
+                // Load the texture for the floor
+                const floorTexture = new THREE.TextureLoader().load('textures/textured-floor.avif');
+
+                // Create a basic material and apply the texture
+                const floorMaterial = new THREE.MeshBasicMaterial({ map: floorTexture, side: THREE.DoubleSide });
+
+                // Combine geometry and material of the floor in a mesh
+                const floorMesh = new THREE.Mesh(floorGeometry, floorMaterial);
+                floorMesh.position.z = 40; // Position the floor slightly below the car
+                floorMesh.position.x = -60;
+                floorMesh.rotation.x = -Math.PI / 2;
+                scene.add(floorMesh);
+            </code>
+        </pre>
+    </section>
+
+    <section id="car_loader">
+        <h2>Create car loader</h2>
+        <p>
+            Create a new instance of the GLTFLoader class using new GLTFLoader().
+            <br>Define the path to the car model file using the variable carPath, which in this case points to 'merc/scene.gltf'.
+        </p>
+        <pre>
+            <code class="language-js">
+                // Load car
+                const loader = new GLTFLoader();
+                const carPath = 'merc/scene.gltf';
+            </code>
+        </pre>
+    </section>
+
+    
 </body>
 </html>
