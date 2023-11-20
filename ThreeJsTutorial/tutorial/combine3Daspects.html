@@ -305,6 +305,62 @@
             </code>
         </pre>
     </section>
+
+    <section id="logo_background">
+        <h2>Add scattered rotating logos background</h2>
+        <p>
+            <ul>
+                <li>Load the Mercedes logo 3D model from the specified URL.</li>
+                <li>Create multiple copies of the logo and position them randomly around the car.</li>
+                <li>Apply random rotation and scaling to each logo.</li>
+                <li>Add the logos to the scene and render the updated scene.</li>
+                <li>Handle any loading errors.</li>
+            </ul>              
+        </p>
+        <pre>
+            <code class="language-js">
+                // Load mercedes logo
+                const logoPath = 'logo/mercedes_logo/scene.gltf';
+
+                // multiple boxes
+                const spread = 500;
+                let logos = []
+
+                // loop 100 times to display 100 logos in random places around the car
+                for (let i = 0; i < 100; i++) {
+                    // Load the gltf 3d model of the mercedes logo
+                    loader.load(
+                        // resource URL
+                        logoPath,
+                        // called when the resource is loaded
+                        (gltf) => {
+                            const logo = gltf.scene;
+
+                            logo.position.x = (Math.random() - 0.5) * spread;
+                            logo.position.y = (Math.random() - 0.5) * spread;
+                            logo.position.z = (Math.random() - 0.5) * spread;
+                            logo.rotation.x = Math.random() * Math.PI;
+                            logo.rotation.y = Math.random() * Math.PI;
+                            const scale = Math.random() + 20;
+                            logo.scale.set(scale, scale, scale);
+                            logos.push(logo);
+                            scene.add(logo);
+                            
+                            renderer.render(scene, camera);
+                        },
+                        // called while loading is progressing
+                        (xhr) => {
+                            console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+                        },
+                        // called when loading has errors
+                        (error) => {
+                            console.error('Error loading logo', error);
+                        }
+                    );
+                }
+            </code>
+        </pre>
+    </section>
 </body>
 
 </html>
