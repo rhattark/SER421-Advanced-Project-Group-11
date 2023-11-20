@@ -28,6 +28,56 @@
 </head>
 <body>
     <h1>Create 3D background with rotating logos</h1>
+    <section id="prerequisites">
+        <h2>Prerequisites</h2>
+        <p>
+            Before we begin this part of the tutorial, we need to setup the environment. This is assuming that node is already installed. 
+            <br>
+            Run the following commands in order to install three.js and vite. Vite will be used to run the server and three js is required for 3d.
+            <br>
+            <ul>
+                <li>> npm install three</li>
+                <li>> npm install vite</li>
+            </ul>
+        </p>
+        <p>
+            Once the code is written, the following command can be run to start the server.
+        </p>
+        <ul>
+            <li>> npx vite</li>
+        </ul>
+        <p>
+            Create the following 2 pages:
+            <ul>
+                <li>index.html</li>
+                <li>main.js</li>
+            </ul>
+        </p>
+        <h4>
+            index.html
+        </h4>
+        <p>
+            This HTML document sets up a basic webpage with a title, removes default body margins using CSS, and includes an external JavaScript module ("main.js") for additional functionality. The JavaScript module is expected to handle the 3D background proof of concept (POC) logic.
+        </p>
+        <pre>
+            <code class="language-html">
+                &lt;!DOCTYPE html&gt;
+                &lt;html lang=&quot;en&quot;&gt;
+                    &lt;head&gt;
+                        &lt;meta charset=&quot;utf-8&quot;&gt;
+                        &lt;title&gt;3d background poc&lt;/title&gt;
+                        &lt;style&gt;
+                            body { margin: 0; }
+                        &lt;/style&gt;
+                    &lt;/head&gt;
+                    &lt;body&gt;
+                        &lt;script type=&quot;module&quot; src=&quot;/main.js&quot;&gt;&lt;/script&gt;
+                    &lt;/body&gt;
+                &lt;/html&gt;
+            </code>
+        </pre>
+    </section>
+    <h4>main.js</h4>
     <section id="import_libraries">
         <h2>Import libraries</h2>
         <p>
@@ -107,6 +157,101 @@
                 directionalLight.position.set(5, 5, 5);
                 directionalLight.castShadow = true;
                 scene.add(directionalLight);
+            </code>
+        </pre>
+    </section>
+
+    <section id="logo_loader">
+        <h2>Load Logo</h2>
+        <p>
+            The GLTFLoader is set up to load 3D models in the GLTF format. The path to the Mercedes logo model is specified.
+        </p>
+        <pre>
+            <code class="language-js">
+                // Load logo
+                const loader = new GLTFLoader();
+                const logoPath = 'logo/mercedes_logo/scene.gltf';
+            </code>
+        </pre>
+    </section>
+
+    <section id="multiple_logos">
+        <h2>Scatter multiple logos in random position</h2>
+        <p>
+            A loop is used to load multiple instances of the Mercedes logo model. Each logo is placed at a random position, rotated randomly, and scaled randomly. Loading progress and errors are logged.
+        </p>
+        <pre>
+            <code class="language-js">
+                // multiple boxes
+                const spread = 500;
+                let logos = []
+
+                // loop 100 times to display 100 logos in random places around the car
+                for (let i = 0; i < 100; i++) {
+                    // Load the gltf 3d model of the mercedes logo
+                    loader.load(
+                        // resource URL
+                        logoPath,
+                        // called when the resource is loaded
+                        (gltf) => {
+                            const logo = gltf.scene;
+
+                            logo.position.x = (Math.random() - 0.5) * spread;
+                            logo.position.y = (Math.random() - 0.5) * spread;
+                            logo.position.z = (Math.random() - 0.5) * spread;
+                            logo.rotation.x = Math.random() * Math.PI;
+                            logo.rotation.y = Math.random() * Math.PI;
+                            const scale = Math.random() + 20;
+                            logo.scale.set(scale, scale, scale);
+                            logos.push(logo);
+                            scene.add(logo);
+                            
+                            renderer.render(scene, camera);
+                        },
+                        // called while loading is progressing
+                        (xhr) => {
+                            console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+                        },
+                        // called when loading has errors
+                        (error) => {
+                            console.error('Error loading logo', error);
+                        }
+                    );
+                }
+            </code>
+        </pre>
+    </section>
+
+    <section id="animation">
+        <h2>Setup animation</h2>
+        <p>
+            A Clock object is created to manage time-related functionality. The animation loop is set up to continuously update the rotation of logos based on elapsed time, handle user input with controls, render the scene, and request the next animation frame for smooth animation.
+        </p>
+        <pre>
+            <code class="language-js">
+                // Create a new Clock object to manage time-related functionality for animations
+                const clock = new THREE.Clock();
+
+                // setup animation loop
+                function animate() {
+                    // Calculate the elapsed time since the start of the animation using the Clock object
+                    const elapsedTime = clock.getElapsedTime();
+
+                    // change rotation of all logos
+                    logos.forEach((logo) => {
+                        logo.rotation.x = elapsedTime;
+                        logo.rotation.y = elapsedTime;
+                    });
+
+                    // Updates the controls to handle user input.
+                    controls.update();
+                    // Renders the scene using the specified camera and renderer. 
+                    renderer.render(scene, camera);
+                    // Requests the next animation frame to create a continuous loop. 
+                    requestAnimationFrame(animate);
+                }
+
+                animate();
             </code>
         </pre>
     </section>
