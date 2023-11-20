@@ -3,6 +3,8 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
+    <link href="../prism.css" rel="stylesheet">
+    <script src="../prism.js"></script>
     <title>Add 3D scene</title>
     <style>
         body {
@@ -25,7 +27,132 @@
     </style>
 </head>
 <body>
-    <h1>Add 3D scene</h1>
-    <h2>In product website</h2>
+    <h1>Add 3D scene to the product website</h1>
+    <p>This tutorial is about the final website where we replace the 2D image with the 3D model in our product website which was built earlier.</p>
+    <section id="prerequisites">
+        <h2>Prerequisites</h2>
+        <p>
+            Before we begin this part of the tutorial, we need to setup the environment. This is assuming that node is already installed. 
+            <br>
+            Run the following commands in order to install three.js and vite. Vite will be used to run the server and three js is required for 3d.
+            <br>
+            <ul>
+                <li>> npm install three</li>
+                <li>> npm install vite</li>
+            </ul>
+        </p>
+        <p>
+            Once the code is written, the following command can be run to start the server.
+        </p>
+        <ul>
+            <li>> npx vite</li>
+        </ul>
+        <p>
+            Create the following 3 files:
+            <ul>
+                <li>index.html</li>
+                <li>styles.css</li>
+                <li>main.js</li>
+            </ul>
+        </p>
+        </section>
+        <section id="3dModel">
+        <h2>
+            Adding 3d Model to the webpage
+        </h2>
+        <p>
+            The same HTML document which we used for the product website is used here. We are making few changes so that a 3d model is rendered in place of the 2d image.
+        </p>
+        <pre>
+            <code class="language-html">
+                &lt;div id="3d-model-container"&gt;&lt;/div&gt; 
+            </code>
+        </pre>
+        <p>
+            Replace the div element with the ID "imagecontainer" with this code snippet. This creates a div element with the ID "3d-model-container". This div is intended to be used as a container for the 3D model.
+        </p>
+
+        <pre>
+            <code class="language-html">
+                &lt;script type="module" src="/main.js"&gt;&lt;/script&gt;
+            </code>
+        </pre>
+        <p>
+            This script tag includes an external JavaScript file ("/main.js") using the src attribute.
+        </p>
+        <p>
+            The type="module" attribute indicates that the script is a JavaScript module. Modules allow for better organization and encapsulation of code.
+        </p>
+    </section>
+
+    <section id="getElement">
+        <h2>
+            Get the HTML Element
+        </h2>
+        <p>
+            The same main.js which we used for combined 3d scene is used here. We are making few changes so that a 3d model is rendered in the 3d-model-container div.
+        </p>
+        <pre>
+            <code class="language-js">
+                // Get the HTML element with the ID "3d-model-container"
+                const container = document.getElementById('3d-model-container');
+            </code>
+        </pre>
+        <p>
+            This line uses the document.getElementById method to retrieve the HTML element with the ID "3d-model-container" and assigns it to the variable container.
+         </p>
+    </section>
+
+    <section id="appendElement">
+        <h2>
+            Append Renderer's DOM Element
+        </h2>
+        <pre>
+            <code class="language-js">
+                // Append the renderer's DOM element to the container
+                container.appendChild(renderer.domElement);
+            </code>
+        </pre>
+        <p>
+            This line uses the appendChild method to append the DOM element of the renderer to the previously obtained container.
+        </p>
+        <p>
+            It appends the DOM element of a three.js renderer (renderer.domElement) to the container, rendering a 3D model in the specified HTML element.
+        </p>
+    </section>
+
+    <section id="resizeModel">
+        <h2>
+            Resizing the 3D Model
+        </h2>
+        <p>
+            Directly replacing the image with 3D model creates an issue with the website scrolling. The model gets zoomed in when scrolled instead of the web page. We need to make make few changes to the height and aspect ratio of the 3D model to get this fixed. 
+        </p>
+        <pre>
+            <code class="language-js">
+                // Create a new Perspective Camera
+                const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight / 0.7, 0.1, 1000);
+
+                // Set the initial size of the renderer
+                renderer.setSize(window.innerWidth, window.innerHeight * 0.7);
+
+                // Update camera aspect ratio
+                camera.aspect = newWidth / newHeight / 0.7;
+
+                // Adjust renderer size based on new dimensions
+                renderer.setSize(newWidth, newHeight * 0.7);
+
+            </code>
+        </pre>
+        <p>
+            These changes set the initial size of the renderer to match the window's width and 70% of its height.
+        </p>
+        <p>
+            Updates the camera's aspect ratio based on new width and height values 
+        </p>
+        <p>
+            Adjusts the renderer's size based on new width and height values, maintaining a height that is 70% of the provided height.
+        </p>
+    </section>
 </body>
 </html>
