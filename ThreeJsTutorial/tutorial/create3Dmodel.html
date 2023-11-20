@@ -4,6 +4,8 @@
 <head>
     <meta charset="utf-8" />
     <title>Create 3D car model</title>
+    <link href="../prism.css" rel="stylesheet">
+    <script src="../prism.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -26,6 +28,290 @@
 </head>
 <body>
     <h1>Create 3D car model</h1>
-    <h2>Use gltf</h2>
+
+    <section id="prerequisites">
+        <h2>Prerequisites</h2>
+        <p>
+            Before we begin this part of the tutorial, we need to setup the environment. This is assuming that node is already installed. 
+            <br>
+            Run the following commands in order to install three.js and vite. Vite will be used to run the server and three js is required for 3d.
+            <br>
+            <ul>
+                <li> npm install three</li>
+                <li> npm install vite</li>
+            </ul>
+        </p>
+        <p>
+            Once the code is written, the following command can be run to start the server.
+        </p>
+        <ul>
+            <li> npx vite</li>
+        </ul>
+        <p>
+            Create the following 2 pages:
+            <ul>
+                <li>index.html</li>
+                <li>main.js</li>
+            </ul>
+        </p>
+        <h4>
+            index.html
+        </h4>
+        <p>
+            This HTML document sets up a basic webpage with a title, removes default body margins using CSS, and includes an external JavaScript module ("main.js") for additional functionality. The JavaScript module is expected to handle the 3D Car and Platform  proof of concept (POC) logic.
+        </p>
+        <pre>
+            <code class="language-html">
+                &lt;!DOCTYPE html&gt;
+                &lt;html lang=&quot;en&quot;&gt;
+                    &lt;head&gt;
+                        &lt;meta charset=&quot;utf-8&quot;&gt;
+                        &lt;title&gt;3d Car and Platform poc&lt;/title&gt;
+                        &lt;style&gt;
+                            body { margin: 0; }
+                        &lt;/style&gt;
+                    &lt;/head&gt;
+                    &lt;body&gt;
+                        &lt;script type=&quot;module&quot; src=&quot;/main.js&quot;&gt;&lt;/script&gt;
+                    &lt;/body&gt;
+                &lt;/html&gt;
+            </code>
+        </pre>
+    </section>
+    <section id="'import_libraries">
+        <h2>Imports and Setup</h2>
+        <div>
+            <ul>
+                <li>This section imports necessary modules from the Three.js library, including modules for 3D object loading, controls, and text rendering.</li>
+                <li>The above line imports the Three.js library and aliases it as ‘THREE.’ This provides access to the functionality of Three.js, which includes methods and classes for creating and rendering 3D scenes, models, and graphics.</li>
+                <li>Importing the ‘OrbitControls’ from the ‘three/addons/controls/OrbitControls.js’ file allows the developers to manipulate the camera position and its orientation in the scene by moving around the desired point.</li>
+                <li>The GLTFLoader class from the 'three/addons/loaders/GLTFLoader.js' file is a loader for the GLTF (GL Transmission Format) file format for 3D models.</li>
+            </ul>
+        </div>
+        <pre>
+            <code class="language-js">
+                import * as THREE from 'three';
+                import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+                import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+            </code>
+        </pre>
+    </section>
+
+    <section id="scene_and_camera">
+        <h2>Scene and Camera</h2>
+        <div>
+            <ul>
+                <li>This is used to create a Three.js scene which is a container for holding all the objects such as lights, camera and objects. </li>
+                <li>PerspectiveCamera has 4 parameters: Field of view in degree, Aspect ratio (window.innerWidth / window.innerHeigh), Near clipping plane (0.1) and Far clipping plane (1000).</li>
+                <li> The position of the camera initailly is setup using ".position".</li>
+            </ul>
+        </div>
+        <pre >
+            <code class="language-js">
+                // scene and camera setup
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    
+                // camera positioning
+                camera.position.z = 50;
+                camera.position.y += 1;
+            </code>
+
+        </pre>
+    </section>
+
+    <section id="renderer_orbit">
+        <h2>Setup Renderer and Orbit</h2>
+        <div>
+            <ul>
+                <li>This is used to create a new instance of webGLRenderer class which is responsible for drawing the Three.js scene using WebGL.</li>
+                <li>Renderer.setSize() is used to match the size of the browser window.</li>
+                <li>setCLearColor sets the clear color of the renderer .</li>
+                <li>appendChild appends the renderer's canvas element to the body of the HTML document</li>
+                <li>An instance of the OrbitControls class provides an easy way to control the camera's position and orientation using mouse movements.</li>
+            </ul>
+        </div>
+        <pre >
+            <code class="language-js">
+                // setup renderer
+                const renderer = new THREE.WebGLRenderer();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setClearColor(0x000000, 1);
+                
+                // add renderer to html
+                document.body.appendChild(renderer.domElement);
+                
+                // orbit controls to move 3d object with mouse
+                const controls = new OrbitControls(camera, renderer.domElement);
+            </code>
+
+        </pre>
+    </section>
+    <section id="light_directional">
+        <h2>Setup Light and add Directional Light</h2>
+        <div>
+            <ul>
+                <li>An instance of the AmbientLight class, representing ambient light in the scene.</li>
+                <li>The Parameter (0xffffff) represents the color of the light in hexadecimal format and the second parameter (0.2) represents the intensity of the light, which ranges from 0 to 1.</li>
+                <li>An instance of the DirectionalLight class, representing a light source that emits light in a specific direction.</li>
+                <li>The first parameter (0xffffff) represents the color of the light, and the second parameter (1) represents the intensity of the light, with 1 being the maximum intensity.</li>    
+                <li>The line sets the position of the directional light in the scene.</li>
+                <li>Finally, the directional light is added to the scene using scene.add(directionalLight).</li>
+            </ul>
+        </div>
+        <pre >
+            <code class="language-js">
+                // light setup
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+                scene.add(ambientLight);
+
+                // Add a directional light to cast shadows
+                const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+                directionalLight.position.set(5, 5, 5);
+                directionalLight.castShadow = true;
+                scene.add(directionalLight);
+            </code>
+
+        </pre>
+    </section>
+
+    <section id="floor_texture_material">
+        <h2>Add a floor, Texture and Material and Combine Geometry</h2>
+        <div>
+            <ul>
+                <li>A circular geometry for the floor using THREE.CircleGeometry. The parameters are the radius (80) and the number of segments (360), creating a circular shape.</li>
+                <li>THREE.TextureLoader loads the texture for the floor. T</li>
+                <li>A basic material for the floor using THREE.MeshBasicMaterial which is configured with a texture (map) and side: THREE.DoubleSide to ensure the texture is applied to both sides of the geometry.</li>
+                <li>A mesh for the floor by combining the circular geometry and the material. </li>    
+                <li>A set the position and rotation of the floor mesh in the scene.</li>
+                <li>Finally, the floor mesh is added to the Three.js scene using scene.add(floorMesh). </li>
+            </ul>
+        </div>
+        <pre >
+            <code class="language-js">
+                // add floor below the car
+                const floorGeometry = new THREE.CircleGeometry(80, 360);
+
+                // Load the texture for the floor
+                const floorTexture = new THREE.TextureLoader().load('textures/textured-floor.avif');
+
+                // Create a basic material and apply the texture
+                const floorMaterial = new THREE.MeshBasicMaterial({ map: floorTexture, side: THREE.DoubleSide });
+
+                // Combine geometry and material of the floor in a mesh
+                const floorMesh = new THREE.Mesh(floorGeometry, floorMaterial);
+                floorMesh.position.z = 40; // Position the floor slightly below the car
+                floorMesh.position.x = -60;
+                floorMesh.rotation.x = -Math.PI / 2;
+                scene.add(floorMesh);
+            </code>
+
+        </pre>
+    </section>
+
+    <section id="loading_car_and _setting_camera">
+        <h2>Load a car and setting up Camera</h2>
+        <div>
+            <ul>
+                <li>An instance of the GLTFLoader class is used to load 3D models in the GLTF format.</li>
+                <li>A variable carPath specifies the path to the GLTF file representing the car model. </li>
+                <li>A function named setCameraPositionForCar that takes a car object as a parameter.</li>
+                <li>A line adjusts the target of the orbit controls to focus on the center of the car.  </li>    
+                <li>After integration, a 3D car model using the GLTF loader and positions the camera provides an optimal perspective to view the car.</li>
+            </ul>
+        </div>
+        <pre >
+            <code class="language-js">
+                // Load car
+                const loader = new GLTFLoader();
+                const carPath = 'merc/scene.gltf';
+
+                // changing the camera position for the car
+                function setCameraPositionForCar(car) {
+                    const boundingBox = new THREE.Box3().setFromObject(car);
+                    const center = boundingBox.getCenter(new THREE.Vector3());
+
+                    // Set the camera position based on the car's bounding box
+                    camera.position.copy(center);
+                    camera.position.z += boundingBox.max.z + 30;
+                    camera.position.y = 50;
+                    camera.position.x = -200;
+
+                    // Optionally, you can adjust the orbit controls target to center on the car
+                    controls.target.copy(center);
+                }
+            </code>
+
+        </pre>
+    </section>
+
+    
+    <section id="loading_gltf">
+        <h2>Load the gltf 3d model of the car</h2>
+        <div>
+            <ul>
+                <li>A loader.load method is used to load the 3D model.</li>
+                <li>A  first function is called when the resource is successfully loaded. </li>
+                <li>The second function is called while the loading is progressing./li>
+                <li>The setCameraPositionForCar function is called within the success callback to position the camera for optimal viewing of the car.  </li>    
+                <li>After integration, the code asynchronously loads a 3D model of a car using the GLTFLoader</li>
+            </ul>
+        </div>
+        <pre >
+            <code class="language-js">
+                // Load the gltf 3d model of the car
+                loader.load(
+                    // resource URL
+                    carPath,
+                    // called when the resource is loaded
+                    (gltf) => {
+                        const car = gltf.scene;
+                        scene.add(car);
+                        setCameraPositionForCar(car);
+                        renderer.render(scene, camera);
+                    },
+                    // called while loading is progressing
+                    (xhr) => {
+                        console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+                    },
+                    // called when loading has errors
+                    (error) => {
+                        console.error('Error loading car', error);
+                    }
+                );
+            </code>
+
+        </pre>
+    </section>
+
+    <section id="Animate_requestAnimationFrame">
+        <h2>Animation and requestAnimationFrame</h2>
+        <div>
+            <ul>
+                <li>The function named animate is responsible for updating and rendering the scene in a continuous loop.</li>
+                <li>The update method is used to handle user input and update the camera position accordingly. </li>
+                <li>A Mesh object by combining the previously created TextGeometry with the newly defined material. </li>
+                <li>Renderer.render is responsible for drawing the current state of the 3D scene onto the canvas.</li>    
+                <li>The requestAnimationFrame function is used instead of a simple setInterval/setTimeout as it syncs with the browser's repaint cycle which optimizes the performance and efficiency.</li>
+                <li>animate() invokes the animate function to kickstart the animation loop. </li>
+            </ul>
+        </div>
+        <pre >
+            <code class="language-js">
+                // Render the scene using the renderer
+                function animate() {
+                    // Updates the controls to handle user input.
+                    controls.update();
+                    // Renders the scene using the specified camera and renderer. 
+                    renderer.render(scene, camera);
+                    // Requests the next animation frame to create a continuous loop. 
+                    requestAnimationFrame(animate);
+                }
+
+                animate();
+            </code>
+
+        </pre>
+    </section>
 </body>
 </html>
