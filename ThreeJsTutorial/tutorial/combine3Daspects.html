@@ -100,5 +100,26 @@
             </code>
         </pre>
     </section>
+    
+    <section id="scene_and_camera">
+        <h2>Setup Scene and Camera</h2>
+        <p>
+            We create a new scene using the THREE.Scene() constructor.
+            <br>We create a perspective camera using THREE.PerspectiveCamera(), specifying the field of view, aspect ratio, near, and far clipping planes.
+            <br>We position the camera 50 units behind the scene's origin.
+            <br>We slightly raise the camera's position along the Y-axis to better view the scene's floor.
+        </p>
+        <pre>
+            <code class="language-js">
+                // scene and camera setup
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+                // camera positioning
+                camera.position.z = 50;
+                camera.position.y += 1; // Raise the camera slightly to see the floor
+            </code>
+        </pre>
+    </section>
 </body>
 </html>
