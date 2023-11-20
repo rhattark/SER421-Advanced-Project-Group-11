@@ -182,5 +182,36 @@
             </code>
         </pre>
     </section>
+
+    <section id="floor">
+        <h2>Add Floor below the car</h2>
+        <p>
+            Create a circular plane geometry using THREE.CircleGeometry() with radius 80 and segments 360.
+            <br>Load the floor texture using THREE.TextureLoader(), specifying the texture's URL.
+            <br>Create a basic material using THREE.MeshBasicMaterial() and apply the loaded texture.
+            <br>Combine the floor geometry and material into a mesh using THREE.Mesh().
+            <br>Position the floor mesh slightly below the car's position and rotate it to lie flat on the ground.
+            <br>Add the floor mesh to the scene using scene.add().
+        </p>
+        <pre>
+            <code class="language-js">
+                // add floor below the car
+                const floorGeometry = new THREE.CircleGeometry(80, 360);
+
+                // Load the texture for the floor
+                const floorTexture = new THREE.TextureLoader().load('textures/textured-floor.avif');
+
+                // Create a basic material and apply the texture
+                const floorMaterial = new THREE.MeshBasicMaterial({ map: floorTexture, side: THREE.DoubleSide });
+
+                // Combine geometry and material of the floor in a mesh
+                const floorMesh = new THREE.Mesh(floorGeometry, floorMaterial);
+                floorMesh.position.z = 40; // Position the floor slightly below the car
+                floorMesh.position.x = -60;
+                floorMesh.rotation.x = -Math.PI / 2;
+                scene.add(floorMesh);
+            </code>
+        </pre>
+    </section>
 </body>
 </html>
