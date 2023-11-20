@@ -105,9 +105,9 @@
         <h2>Setup Scene and Camera</h2>
         <p>
             We create a new scene using the THREE.Scene() constructor.
-            <br>We create a perspective camera using THREE.PerspectiveCamera(), specifying the field of view, aspect ratio, near, and far clipping planes.
+            <br>Create a perspective camera using THREE.PerspectiveCamera(), specifying the field of view, aspect ratio, near, and far clipping planes.
             <br>We position the camera 50 units behind the scene's origin.
-            <br>We slightly raise the camera's position along the Y-axis to better view the scene's floor.
+            <br>Slightly raise the camera's position along the Y-axis to better view the scene's floor.
         </p>
         <pre>
             <code class="language-js">
@@ -118,6 +118,27 @@
                 // camera positioning
                 camera.position.z = 50;
                 camera.position.y += 1; // Raise the camera slightly to see the floor
+            </code>
+        </pre>
+    </section>
+
+    <section id="renderer">
+        <h2>Setup renderer</h2>
+        <p>
+            Here, we create a WebGL renderer using THREE.WebGLRenderer().
+            <br>Set the renderer's size to match the browser window's width and height.
+            <br>Set the renderer's background color to black with an opacity of 1.
+            <br>We append the renderer's DOM element to the body of the HTML document.
+        </p>
+        <pre>
+            <code class="language-js">
+                // setup renderer
+                const renderer = new THREE.WebGLRenderer();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setClearColor(0x000000, 1);
+
+                // add renderer to html
+                document.body.appendChild(renderer.domElement);
             </code>
         </pre>
     </section>
