@@ -418,6 +418,38 @@
             </code>
         </pre>
     </section>
+
+    <section id="window_resize">
+        <h2>Maintain aspect ratio on window resize</h2>
+        <p>
+            <ul>
+                <li>Listen for window resize events.</li>
+                <li>When the window is resized, calculate the new width and height.</li>
+                <li>Update the camera's aspect ratio to match the new window dimensions.</li>
+                <li>Refresh the camera's projection matrix to apply the changes.</li>
+                <li>Resize the renderer to match the new window size.</li>
+            </ul>              
+        </p>
+        <pre>
+            <code class="language-js">
+                // Event listener for window resize events to ensure the scene adjusts to the new window dimensions
+                window.addEventListener('resize', () => {
+                    // Obtain the new width and height of the window
+                    const newWidth = window.innerWidth;
+                    const newHeight = window.innerHeight;
+
+                    // Adjust the camera's aspect ratio based on the new dimensions
+                    camera.aspect = newWidth / newHeight;
+
+                    // Update the camera's projection matrix to reflect the changes
+                    camera.updateProjectionMatrix();
+
+                    // Resize the renderer to match the new window dimensions
+                    renderer.setSize(newWidth, newHeight);
+                });
+            </code>
+        </pre>
+    </section>
 </body>
 
 </html>
