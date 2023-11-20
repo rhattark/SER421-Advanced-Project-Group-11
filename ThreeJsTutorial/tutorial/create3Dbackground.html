@@ -90,5 +90,25 @@
             </code>
         </pre>
     </section>
+
+    <section id="lights">
+        <h2>Setup lights</h2>
+        <p>
+            Ambient light and a directional light are added to the scene. Ambient light provides global illumination, and a directional light simulates sunlight, casting shadows in the scene.
+        </p>
+        <pre>
+            <code class="language-js">
+                // light setup
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+                scene.add(ambientLight);
+
+                // Add a directional light to cast shadows
+                const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+                directionalLight.position.set(5, 5, 5);
+                directionalLight.castShadow = true;
+                scene.add(directionalLight);
+            </code>
+        </pre>
+    </section>
 </body>
 </html>
