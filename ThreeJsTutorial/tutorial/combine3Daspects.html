@@ -89,13 +89,13 @@
     <section id="import_libraries">
         <h2>Import libraries</h2>
         <p>
-            This section imports the Three.js library and required modules for creating a 3D scene, handling camera
-            movement, loading 3D models, and 3d text.
-            <br>First import imports the Three.js library for 3D graphics in web browsers.
-            <br>Next one imports OrbitControls for interactive controls like rotating, panning, and zooming.
-            <br>And the next one imports GLTFLoader for loading and rendering 3D models in GLTF format.
-            <br>Next one imports TTFLoader for loading and parsing TrueType Fonts (TTF).
-            <br>The last one imports Font and TextGeometry for loading and generating 3D text meshes.
+            <ul>
+                <li>Import the Three.js library for 3D graphics in web browsers.</li>
+                <li>Import OrbitControls for interactive controls like rotating, panning, and zooming.</li>
+                <li>Import GLTFLoader for loading and rendering 3D models in GLTF format.</li>
+                <li>Import TTFLoader for loading and parsing TrueType Fonts (TTF).</li>
+                <li>Import Font and TextGeometry for loading and generating 3D text meshes.</li>
+            </ul>              
         </p>
         <pre>
             <code class="language-js">
@@ -112,11 +112,12 @@
     <section id="scene_and_camera">
         <h2>Setup Scene and Camera</h2>
         <p>
-            We create a new scene using the THREE.Scene() constructor.
-            <br>Create a perspective camera using THREE.PerspectiveCamera(), specifying the field of view, aspect ratio,
-            near, and far clipping planes.
-            <br>We position the camera 50 units behind the scene's origin.
-            <br>Slightly raise the camera's position along the Y-axis to better view the scene's floor.
+            <ul>
+                <li>Create a new scene using the THREE.Scene() constructor.</li>
+                <li>Create a perspective camera using THREE.PerspectiveCamera(), specifying the field of view, aspect ratio, near, and far clipping planes.</li>
+                <li>Position the camera 50 units behind the scene's origin.</li>
+                <li>Slightly raise the camera's position along the Y-axis to better view the scene's floor.</li>
+            </ul>              
         </p>
         <pre>
             <code class="language-js">
@@ -134,10 +135,12 @@
     <section id="renderer">
         <h2>Setup renderer</h2>
         <p>
-            Here, we create a WebGL renderer using THREE.WebGLRenderer().
-            <br>Set the renderer's size to match the browser window's width and height.
-            <br>Set the renderer's background color to black with an opacity of 1.
-            <br>We append the renderer's DOM element to the body of the HTML document.
+            <ul>
+                <li>Create a WebGL renderer using THREE.WebGLRenderer().</li>
+                <li>Set the renderer's size to match the browser window's width and height.</li>
+                <li>Set the renderer's background color to black with an opacity of 1.</li>
+                <li>Append the renderer's DOM element to the body of the HTML document.</li>
+            </ul>              
         </p>
         <pre>
             <code class="language-js">
@@ -155,9 +158,11 @@
     <section id="orbit_controls">
         <h2>Add orbit controls</h2>
         <p>
-            We create an OrbitControls object to enable interactive camera controls using the mouse.
-            <br>We pass the camera and the renderer's DOM element as parameters to the OrbitControls constructor.
-            <br>This allows us to rotate, pan, and zoom the 3D scene using the mouse.
+            <ul>
+                <li>Create an OrbitControls object to enable interactive camera controls using the mouse.</li>
+                <li>Pass the camera and the renderer's DOM element as parameters to the OrbitControls constructor.</li>
+                <li>This allows us to rotate, pan, and zoom the 3D scene using the mouse.</li>
+            </ul>              
         </p>
         <pre>
             <code class="language-js">
@@ -170,12 +175,14 @@
     <section id="lights">
         <h2>Setup lights</h2>
         <p>
-            We create an ambient light using THREE.AmbientLight(), setting its color to white and intensity to 0.2.
-            <br>Add the ambient light to the scene using scene.add().
-            <br>Create a directional light using THREE.DirectionalLight(), setting its color to white and intensity to 1.
-            <br>Position the directional light using directionalLight.position.set(), placing it at coordinates (5, 5, 5).
-            <br>Enable shadow casting for the directional light using directionalLight.castShadow = true.
-            <br>Add the directional light to the scene using scene.add().
+            <ul>
+                <li>Create an ambient light using THREE.AmbientLight(), setting its color to white and intensity to 0.2.</li>
+                <li>Add the ambient light to the scene using scene.add().</li>
+                <li>Create a directional light using THREE.DirectionalLight(), setting its color to white and intensity to 1.</li>
+                <li>Position the directional light using directionalLight.position.set(), placing it at coordinates (5, 5, 5).</li>
+                <li>Enable shadow casting for the directional light using directionalLight.castShadow = true.</li>
+                <li>Add the directional light to the scene using scene.add().</li>
+            </ul>              
         </p>
         <pre>
             <code class="language-js">
@@ -195,12 +202,14 @@
     <section id="floor">
         <h2>Add Floor below the car</h2>
         <p>
-            Create a circular plane geometry using THREE.CircleGeometry() with radius 80 and segments 360.
-            <br>Load the floor texture using THREE.TextureLoader(), specifying the texture's URL.
-            <br>Create a basic material using THREE.MeshBasicMaterial() and apply the loaded texture.
-            <br>Combine the floor geometry and material into a mesh using THREE.Mesh().
-            <br>Position the floor mesh slightly below the car's position and rotate it to lie flat on the ground.
-            <br>Add the floor mesh to the scene using scene.add().
+            <ul>
+                <li>Create a circular plane geometry using THREE.CircleGeometry() with radius 80 and segments 360.</li>
+                <li>Load the floor texture using THREE.TextureLoader(), specifying the texture's URL.</li>
+                <li>Create a basic material using THREE.MeshBasicMaterial() and apply the loaded texture.</li>
+                <li>Combine the floor geometry and material into a mesh using THREE.Mesh().</li>
+                <li>Position the floor mesh slightly below the car's position and rotate it to lie flat on the ground.</li>
+                <li>Add the floor mesh to the scene using scene.add().</li>
+            </ul>              
         </p>
         <pre>
             <code class="language-js">
@@ -226,9 +235,10 @@
     <section id="car_loader">
         <h2>Create car loader</h2>
         <p>
-            Create a new instance of the GLTFLoader class using new GLTFLoader().
-            <br>Define the path to the car model file using the variable carPath, which in this case points to
-            'merc/scene.gltf'.
+            <ul>
+                <li>Create a new instance of the GLTFLoader class using new GLTFLoader().</li>
+                <li>Define the path to the car model file using the variable carPath, which in this case points to 'merc/scene.gltf'.</li>
+            </ul>              
         </p>
         <pre>
             <code class="language-js">
