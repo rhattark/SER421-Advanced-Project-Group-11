@@ -7,7 +7,7 @@ import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 
 // scene and camera setup
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight /0.7, 0.1, 1000);
 const container = document.getElementById('3d-model-container');
 
 // camera positioning
@@ -16,7 +16,7 @@ camera.position.y += 1; // Raise the camera slightly to see the floor
 
 // setup renderer
 const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setSize(window.innerWidth, window.innerHeight * 0.7);
 renderer.setClearColor(0x000000, 1);
 
 // add renderer to html
@@ -182,13 +182,13 @@ window.addEventListener('resize', () => {
     const newHeight = window.innerHeight;
 
     // Adjust the camera's aspect ratio based on the new dimensions
-    camera.aspect = newWidth / newHeight;
+    camera.aspect = newWidth / newHeight / 0.7;
 
     // Update the camera's projection matrix to reflect the changes
     camera.updateProjectionMatrix();
 
     // Resize the renderer to match the new window dimensions
-    renderer.setSize(newWidth, newHeight);
+    renderer.setSize(newWidth, newHeight * 0.7);
 });
 
 // setup animation loop
