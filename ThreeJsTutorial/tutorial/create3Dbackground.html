@@ -81,7 +81,11 @@
     <section id="import_libraries">
         <h2>Import libraries</h2>
         <p>
-            This section imports the Three.js library and required modules for creating a 3D scene, handling camera movement, and loading 3D models.
+            <ul>
+                <li>Import the Three.js library for 3D graphics in web browsers.</li>
+                <li>Import OrbitControls for interactive controls like rotating, panning, and zooming.</li>
+                <li>Import GLTFLoader for loading and rendering 3D models in GLTF format.</li>
+            </ul>  
         </p>
         <pre>
             <code class="language-js">
@@ -95,7 +99,12 @@
     <section id="scene_and_camera">
         <h2>Setup Scene and Camera</h2>
         <p>
-            This section initializes a 3D scene and sets up a perspective camera with a specified field of view, aspect ratio, and near and far clipping planes. The camera position is adjusted to provide a suitable view of the scene.
+            <ul>
+                <li>Create a new scene using the THREE.Scene() constructor.</li>
+                <li>Create a perspective camera using THREE.PerspectiveCamera(), specifying the field of view, aspect ratio, near, and far clipping planes.</li>
+                <li>Position the camera 50 units behind the scene's origin.</li>
+                <li>Slightly raise the camera's position along the Y-axis to better view the scene's floor.</li>
+            </ul>   
         </p>
         <pre>
             <code class="language-js">
@@ -113,7 +122,12 @@
     <section id="renderer">
         <h2>Setup renderer</h2>
         <p>
-            Here, a WebGL renderer is created, sized to match the window dimensions, and set to clear with a black color. The renderer's DOM element is appended to the HTML body, providing the canvas for rendering the 3D scene.
+            <ul>
+                <li>Create a WebGL renderer using THREE.WebGLRenderer().</li>
+                <li>Set the renderer's size to match the browser window's width and height.</li>
+                <li>Set the renderer's background color to black with an opacity of 1.</li>
+                <li>Append the renderer's DOM element to the body of the HTML document.</li>
+            </ul> 
         </p>
         <pre>
             <code class="language-js">
@@ -131,7 +145,11 @@
     <section id="orbit_controls">
         <h2>Add orbit controls</h2>
         <p>
-            OrbitControls is instantiated to enable interactive control of the camera. Users can move around the 3D scene by dragging the mouse, providing a more immersive experience.
+            <ul>
+                <li>Create an OrbitControls object to enable interactive camera controls using the mouse.</li>
+                <li>Pass the camera and the renderer's DOM element as parameters to the OrbitControls constructor.</li>
+                <li>This allows us to rotate, pan, and zoom the 3D scene using the mouse.</li>
+            </ul>  
         </p>
         <pre>
             <code class="language-js">
@@ -144,7 +162,14 @@
     <section id="lights">
         <h2>Setup lights</h2>
         <p>
-            Ambient light and a directional light are added to the scene. Ambient light provides global illumination, and a directional light simulates sunlight, casting shadows in the scene.
+            <ul>
+                <li>Create an ambient light using THREE.AmbientLight(), setting its color to white and intensity to 0.2.</li>
+                <li>Add the ambient light to the scene using scene.add().</li>
+                <li>Create a directional light using THREE.DirectionalLight(), setting its color to white and intensity to 1.</li>
+                <li>Position the directional light using directionalLight.position.set(), placing it at coordinates (5, 5, 5).</li>
+                <li>Enable shadow casting for the directional light using directionalLight.castShadow = true.</li>
+                <li>Add the directional light to the scene using scene.add().</li>
+            </ul>  
         </p>
         <pre>
             <code class="language-js">
@@ -164,7 +189,9 @@
     <section id="logo_loader">
         <h2>Load Logo</h2>
         <p>
-            The GLTFLoader is set up to load 3D models in the GLTF format. The path to the Mercedes logo model is specified.
+            <ul>
+                <li>The GLTFLoader is set up to load 3D models in the GLTF format. The path to the Mercedes logo model is specified.</li>
+            </ul>
         </p>
         <pre>
             <code class="language-js">
@@ -178,7 +205,12 @@
     <section id="multiple_logos">
         <h2>Scatter multiple logos in random position</h2>
         <p>
-            A loop is used to load multiple instances of the Mercedes logo model. Each logo is placed at a random position, rotated randomly, and scaled randomly. Loading progress and errors are logged.
+            <ul>
+                <li>Create multiple copies of the logo and position them randomly around the car.</li>
+                <li>Apply random rotation and scaling to each logo.</li>
+                <li>Add the logos to the scene and render the updated scene.</li>
+                <li>Handle any loading errors.</li>
+            </ul>      
         </p>
         <pre>
             <code class="language-js">
@@ -225,7 +257,13 @@
     <section id="animation">
         <h2>Setup animation</h2>
         <p>
-            A Clock object is created to manage time-related functionality. The animation loop is set up to continuously update the rotation of logos based on elapsed time, handle user input with controls, render the scene, and request the next animation frame for smooth animation.
+            <ul>
+                <li>Create a Clock object to track time for animations.</li>
+                <li>Define an animation loop function that updates the scene.</li>
+                <li>Inside the animation loop, calculate the elapsed time since the animation started.</li>
+                <li>Update the rotation of all logos based on the elapsed time.</li>
+                <li>Render the updated scene and request the next animation frame.</li>
+            </ul>  
         </p>
         <pre>
             <code class="language-js">
