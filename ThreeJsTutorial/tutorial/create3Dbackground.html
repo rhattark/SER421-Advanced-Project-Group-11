@@ -4,6 +4,8 @@
 <head>
     <meta charset="utf-8" />
     <title>Create 3D background</title>
+    <link href="../prism.css" rel="stylesheet">
+    <script src="../prism.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -25,7 +27,19 @@
     </style>
 </head>
 <body>
-    <h1>Create 3D car background</h1>
-    <h2>With rotating logos</h2>
+    <h1>Create 3D background with rotating logos</h1>
+    <section id="step1">
+        <h2>Import libraries</h2>
+        <p>
+            This section imports the Three.js library and required modules for creating a 3D scene, handling camera movement, and loading 3D models.
+        </p>
+        <pre>
+            <code class="language-js">
+                import * as THREE from 'three';
+                import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+                import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+            </code>
+        </pre>
+    </section>
 </body>
 </html>
