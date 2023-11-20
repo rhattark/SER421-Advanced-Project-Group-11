@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
-
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="utf-8" />
     <title>Basic car product website</title>
@@ -26,8 +26,10 @@
         }
     </style>
 </head>
+
 <body>
     <h1>Build a basic car product website using HTML and CSS</h1>
+
     <section id="doc-type">
         <h2>Document Type Declaration (DOCTYPE)</h2>
         <p>
@@ -62,8 +64,8 @@
                 &lt;head&gt;
                     &lt;meta charset="utf-8"&gt; &lt;!-- Specifies the character encoding for the document (UTF-8) --&gt;
                     &lt;title&gt;Product Website&lt;/title&gt; &lt;!--Sets the title of the webpage displayed in the browser--&gt;
-                    &lt;link rel="stylesheet" href="styles.css"&gt;  &lt;!--Links an external CSS file ("styles.css") to style the HTML document--&gt;
-                &lt;/head&gt;                
+                    &lt;link rel="stylesheet" href="styles.css"&gt; &lt;!--Links an external CSS file ("styles.css") to style the HTML document--&gt;
+                &lt;/head&gt;
             </code>
         </pre>
     </section>
@@ -169,28 +171,6 @@
         </pre>
     </section>
 
-    <section id="car-configuration-section">
-        <h2>Car Configuration Section</h2>
-        <p>
-            This section provides information about car configuration, including interior and exterior features.
-        </p>
-        <pre>
-            <code class="language-html">
-                &lt;section id="car-configuration"&gt;
-                    &lt;h2&gt;Car Configuration&lt;/h2&gt;
-                    &lt;div&gt;
-                        &lt;h3&gt;Interior Features&lt;/h3&gt;
-                        &lt;p&gt;Indulge in luxury with our top-notch interior features...&lt;/p&gt;
-                    &lt;/div&gt;
-                    &lt;div&gt;
-                        &lt;h3&gt;Exterior Options&lt;/h3&gt;
-                        &lt;p&gt;Personalize your vehicle with a variety of exterior options...&lt;/p&gt;
-                    &lt;/div&gt;
-                &lt;/section&gt;
-            </code>
-        </pre>
-    </section>
-
     <section id="car-features-section">
         <h2>Car Features Section</h2>
         <p>
@@ -251,7 +231,7 @@
                     anchor.addEventListener('click', function (e) {
                         // Prevent the default behavior of the anchor link
                         e.preventDefault();
-        
+
                         // Scroll to the target element with the matching ID
                         document.querySelector(this.getAttribute('href')).scrollIntoView({
                             behavior: 'smooth'
@@ -261,14 +241,15 @@
             </code>
         </pre>
 
-        <p>
-            This code provides smooth scrolling behavior when clicking on anchor links that reference sections within the same HTML document.<br>
-            It targets anchor links with href attributes starting with "#", assuming they are meant to scroll to elements with corresponding IDs.<br>
-            The smooth scrolling effect is achieved by using scrollIntoView with the option behavior: 'smooth'.<br>
-            The e.preventDefault() ensures that clicking on the anchor link doesn't trigger the default navigation behavior.<br>
-        </p>
+        <ul>
+            <li>This code provides smooth scrolling behavior when clicking on anchor links that reference sections within the same HTML document.</li>
+            <li>It targets anchor links with href attributes starting with "#", assuming they are meant to scroll to elements with corresponding IDs.</li>
+            <li>The smooth scrolling effect is achieved by using scrollIntoView with the option behavior: 'smooth'.</li>
+            <li>The e.preventDefault() ensures that clicking on the anchor link doesn't trigger the default navigation behavior.</li>
+        </ul>
 
     </section>
-    
+
 </body>
+
 </html>
