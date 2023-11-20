@@ -4,6 +4,8 @@
 <head>
     <meta charset="utf-8" />
     <title>Create 3D text</title>
+    <link href="../prism.css" rel="stylesheet">
+    <script src="../prism.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -26,6 +28,211 @@
 </head>
 <body>
     <h1>Create 3D text</h1>
-    <h2>With car name</h2>
+    <section id="'import_libraries">
+        <h2>Imports and Setup</h2>
+        <div>
+            <ul>
+                <li>This section imports necessary modules from the Three.js library, including modules for 3D object loading, controls, and text rendering.</li>
+                <li>The above line imports the Three.js library and aliases it as ‘THREE.’ This provides access to the functionality of Three.js, which includes methods and classes for creating and rendering 3D scenes, models, and graphics.</li>
+                <li>Importing the ‘OrbitControls’ from the ‘three/addons/controls/OrbitControls.js’ file allows the developers to manipulate the camera position and its orientation in the scene by moving around the desired point.</li>
+                <li>The TTFLoader class from the three/examples/jsm/loaders/TTFLoader.js file is a TrueType Font (TTF) file loader. It is used for loading font data from TTF files into Three.js.</li>
+                <li>The Font class from the three/examples/jsm/loaders/FontLoader.js file represents fonts loaded by the FontLoader. It contains information about the characters and geometry of the font.</li>
+                <li>The TextGeometry class from the three/examples/jsm/geometries/TextGeometry.js file creates 3D geometry for rendering text in a Three.js scene. It takes a text string, a font, and other parameters to generate the geometry for the specified text.</li>
+            </ul>
+        </div>
+        <pre>
+            <code class="language-js">
+                import * as THREE from 'three';
+                import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+                import { TTFLoader } from 'three/examples/jsm/loaders/TTFLoader.js';
+                import { Font } from 'three/examples/jsm/loaders/FontLoader.js';
+                import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
+            </code>
+        </pre>
+    </section>
+
+    <section id="scene_and_camera">
+        <h2>Scene and Camera</h2>
+        <div>
+            <ul>
+                <li>This is used to create a Three.js scene which is a container for holding all the objects such as lights, camera and objects. </li>
+                <li>PerspectiveCamera has 4 parameters: Field of view in degree, Aspect ratio (window.innerWidth / window.innerHeigh), Near clipping plane (0.1) and Far clipping plane (1000).</li>
+                <li> The position of the camera initailly is setup using ".position".</li>
+            </ul>
+        </div>
+        <pre >
+            <code class="language-js">
+                // scene and camera setup
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    
+                // camera positioning
+                camera.position.z = 50;
+                camera.position.y += 1;
+            </code>
+
+        </pre>
+    </section>
+
+    <section id="renderer_orbit">
+        <h2>Setup Renderer and Orbit</h2>
+        <div>
+            <ul>
+                <li>This is used to create a new instance of webGLRenderer class which is responsible for drawing the Three.js scene using WebGL.</li>
+                <li>Renderer.setSize() is used to match the size of the browser window.</li>
+                <li>setCLearColor sets the clear color of the renderer .</li>
+                <li>appendChild appends the renderer's canvas element to the body of the HTML document</li>
+                <li>An instance of the OrbitControls class provides an easy way to control the camera's position and orientation using mouse movements.</li>
+            </ul>
+        </div>
+        <pre >
+            <code class="language-js">
+                // setup renderer
+                const renderer = new THREE.WebGLRenderer();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setClearColor(0x000000, 1);
+                
+                // add renderer to html
+                document.body.appendChild(renderer.domElement);
+                
+                // orbit controls to move 3d object with mouse
+                const controls = new OrbitControls(camera, renderer.domElement);
+            </code>
+
+        </pre>
+    </section>
+    
+    <section id="light_directional">
+        <h2>Setup Light and add Directional Light</h2>
+        <div>
+            <ul>
+                <li>An instance of the AmbientLight class, representing ambient light in the scene.</li>
+                <li>The Parameter (0xffffff) represents the color of the light in hexadecimal format and the second parameter (0.2) represents the intensity of the light, which ranges from 0 to 1.</li>
+                <li>An instance of the DirectionalLight class, representing a light source that emits light in a specific direction.</li>
+                <li>The first parameter (0xffffff) represents the color of the light, and the second parameter (1) represents the intensity of the light, with 1 being the maximum intensity.</li>    
+                <li>The line sets the position of the directional light in the scene.</li>
+                <li>Finally, the directional light is added to the scene using scene.add(directionalLight).</li>
+            </ul>
+        </div>
+        <pre >
+            <code class="language-js">
+                // light setup
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+                scene.add(ambientLight);
+
+                // Add a directional light to cast shadows
+                const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+                directionalLight.position.set(5, 5, 5);
+                directionalLight.castShadow = true;
+                scene.add(directionalLight);
+            </code>
+
+        </pre>
+    </section>
+
+    <section id="ttf_geometry">
+        <h2>Load a TTF and create a 3D text geometry</h2>
+        <div>
+            <ul>
+                <li>It creates an instance of the TTFLoader class, which is used to load TrueType Font (TTF) files.</li>
+                <li>The load method of the TTFLoader to load a TTF font file named 'Cardo-Regular.ttf' from the 'fonts' directory.</li>
+                <li>An instance of the DirectionalLight class, representing a light source that emits light in a specific direction.</li>
+                <li>A Font object in Three.js using the parsed font Data.</li>    
+                <li>A TextGeometry object, representing the 3D geometry of the text.</li>
+                <li>The line centers the text geometry based on its size and shape.</li>
+            </ul>
+        </div>
+        <pre >
+            <code class="language-js">
+                // Load 3d text
+                const ttfLoader = new TTFLoader();
+
+                // Load the TTF font file from public/fonts directory
+                ttfLoader.load('fonts/Cardo-Regular.ttf', (fontData) => {
+                    // Convert the parsed fontData to the format Three.js understands
+                    const font = new Font(fontData);
+
+                    // Create the text geometry
+                    const textGeometry = new TextGeometry('G-Class', {
+                        font: font,
+                        size: 15,
+                        height: 5,
+                        curveSegments: 32,
+                        bevelEnabled: true,
+                        bevelThickness: 0.5,
+                        bevelSize: 0.5,
+                        bevelSegments: 8,
+                    });
+                    textGeometry.center();
+            </code>
+
+        </pre>
+    </section>
+
+    <section id="material_lightening">
+        <h2>Adding Materials and Lightening to the 3D Text</h2>
+        <div>
+            <ul>
+                <li>A material for the 3D text using the MeshStandardMaterial class is used to defines how the surface of the geometry, its lit and shaded.</li>
+                <li>The material is configured with a light grey color ('lightgrey') and a roughness value of 0.5.</li>
+                <li>A Mesh object by combining the previously created TextGeometry with the newly defined material. </li>
+                <li>The initial position of the text mesh. In this case, it's positioned at the origin (0, 0, 0) of the scene.</li>    
+                <li>The text mesh is added to the Three.js scene using scene.add(textMesh).</li>
+                <li>The result is a 3D text mesh with a light grey color and some glossiness glowed by a directional light. </li>
+            </ul>
+        </div>
+        <pre >
+            <code class="language-js">
+                // Create a standard material with red color and 50% gloss
+                const material = new THREE.MeshStandardMaterial({
+                    color: 'lightgrey',
+                    roughness: 0.5
+                });
+            
+                // Geometries are attached to meshes so that they get rendered
+                const textMesh = new THREE.Mesh(textGeometry, material);
+                // Update positioning of the text - this will change once added to combined page
+                textMesh.position.set(0, 0, 0);
+                scene.add(textMesh);
+            
+                // Add a directional light to illuminate the text mesh
+                const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // White light
+                directionalLight.position.set(5, 10, 5);
+                scene.add(directionalLight);
+                });
+            </code>
+
+        </pre>
+    </section>
+
+    <section id="Animate_requestAnimationFrame">
+        <h2>Animation and requestAnimationFrame</h2>
+        <div>
+            <ul>
+                <li>The function named animate is responsible for updating and rendering the scene in a continuous loop.</li>
+                <li>The update method is used to handle user input and update the camera position accordingly. </li>
+                <li>A Mesh object by combining the previously created TextGeometry with the newly defined material. </li>
+                <li>Renderer.render is responsible for drawing the current state of the 3D scene onto the canvas.</li>    
+                <li>The requestAnimationFrame function is used instead of a simple setInterval/setTimeout as it syncs with the browser's repaint cycle which optimizes the performance and efficiency.</li>
+                <li>animate() invokes the animate function to kickstart the animation loop. </li>
+            </ul>
+        </div>
+        <pre >
+            <code class="language-js">
+                // Render the scene using the renderer
+                function animate() {
+                    // Updates the controls to handle user input.
+                    controls.update();
+                    // Renders the scene using the specified camera and renderer. 
+                    renderer.render(scene, camera);
+                    // Requests the next animation frame to create a continuous loop. 
+                    requestAnimationFrame(animate);
+                }
+
+                animate();
+            </code>
+
+        </pre>
+    </section>
 </body>
 </html>
