@@ -142,5 +142,20 @@
             </code>
         </pre>
     </section>
+
+    <section id="orbit_controls">
+        <h2>Add orbit controls</h2>
+        <p>
+            We create an OrbitControls object to enable interactive camera controls using the mouse.
+            <br>We pass the camera and the renderer's DOM element as parameters to the OrbitControls constructor.
+            <br>This allows us to rotate, pan, and zoom the 3D scene using the mouse.
+        </p>
+        <pre>
+            <code class="language-js">
+                // orbit controls to move 3d object with mouse
+                const controls = new OrbitControls(camera, renderer.domElement);
+            </code>
+        </pre>
+    </section>
 </body>
 </html>
