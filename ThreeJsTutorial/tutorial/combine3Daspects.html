@@ -450,6 +450,48 @@
             </code>
         </pre>
     </section>
+
+    <section id="animation">
+        <h2>Setup animation loop</h2>
+        <p>
+            <ul>
+                <li>Create a Clock object to track time for animations.</li>
+                <li>Define an animation loop function that updates the scene.</li>
+                <li>Inside the animation loop, calculate the elapsed time since the animation started.</li>
+                <li>Update the rotation of all logos based on the elapsed time.</li>
+                <li>Render the updated scene and request the next animation frame.</li>
+            </ul>              
+        </p>
+        <pre>
+            <code class="language-js">
+                // Create a new Clock object to manage time-related functionality for animations
+                const clock = new THREE.Clock();
+
+                // setup animation loop
+                function animate() {
+                    // Calculate the elapsed time since the start of the animation using the Clock object
+                    const elapsedTime = clock.getElapsedTime();
+
+                    // change rotation of all logos
+                    logos.forEach((logo) => {
+                        logo.rotation.x = elapsedTime;
+                        logo.rotation.y = elapsedTime;
+                    });
+
+                    // Updates the controls to handle user input.
+                    controls.update();
+
+                    // Renders the scene using the specified camera and renderer. 
+                    renderer.render(scene, camera);
+
+                    // Requests the next animation frame to create a continuous loop. 
+                    requestAnimationFrame(animate);
+                }
+
+                animate();
+            </code>
+        </pre>
+    </section>
 </body>
 
 </html>
