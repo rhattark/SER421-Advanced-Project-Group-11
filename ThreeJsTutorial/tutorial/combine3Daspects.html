@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="utf-8" />
     <title>Combine 3D aspects</title>
@@ -26,20 +27,24 @@
         }
     </style>
 </head>
+
 <body>
     <h1>Combine 3D aspects</h1>
-    <p>Now it's time to combine everything we did before into a single 3d scene. We will start with the prerequisites and then go on and combine everything in main.js.</p>
+    <p>Now it's time to combine everything we did before into a single 3d scene. We will start with the prerequisites
+        and then go on and combine everything in main.js.</p>
     <section id="prerequisites">
         <h2>Prerequisites</h2>
         <p>
-            Before we begin this part of the tutorial, we need to setup the environment. This is assuming that node is already installed. 
+            Before we begin this part of the tutorial, we need to setup the environment. This is assuming that node is
+            already installed.
             <br>
-            Run the following commands in order to install three.js and vite. Vite will be used to run the server and three js is required for 3d.
+            Run the following commands in order to install three.js and vite. Vite will be used to run the server and
+            three js is required for 3d.
             <br>
-            <ul>
-                <li>> npm install three</li>
-                <li>> npm install vite</li>
-            </ul>
+        <ul>
+            <li>> npm install three</li>
+            <li>> npm install vite</li>
+        </ul>
         </p>
         <p>
             Once the code is written, the following command can be run to start the server.
@@ -49,16 +54,18 @@
         </ul>
         <p>
             Create the following 2 pages:
-            <ul>
-                <li>index.html</li>
-                <li>main.js</li>
-            </ul>
+        <ul>
+            <li>index.html</li>
+            <li>main.js</li>
+        </ul>
         </p>
         <h4>
             index.html
         </h4>
         <p>
-            This HTML document sets up a basic webpage with a title, removes default body margins using CSS, and includes an external JavaScript module ("main.js") for additional functionality. The JavaScript module is expected to handle the 3D background proof of concept (POC) logic.
+            This HTML document sets up a basic webpage with a title, removes default body margins using CSS, and
+            includes an external JavaScript module ("main.js") for additional functionality. The JavaScript module is
+            expected to handle the 3D background proof of concept (POC) logic.
         </p>
         <pre>
             <code class="language-html">
@@ -82,12 +89,13 @@
     <section id="import_libraries">
         <h2>Import libraries</h2>
         <p>
-            This section imports the Three.js library and required modules for creating a 3D scene, handling camera movement, loading 3D models, and 3d text.
-            <br>First import imports the Three.js library for 3D graphics in web browsers.
-            <br>Next one imports OrbitControls for interactive controls like rotating, panning, and zooming.
-            <br>And the next one imports GLTFLoader for loading and rendering 3D models in GLTF format.
-            <br>Next one imports TTFLoader for loading and parsing TrueType Fonts (TTF).
-            <br>The last one imports Font and TextGeometry for loading and generating 3D text meshes.
+            <ul>
+                <li>Import the Three.js library for 3D graphics in web browsers.</li>
+                <li>Import OrbitControls for interactive controls like rotating, panning, and zooming.</li>
+                <li>Import GLTFLoader for loading and rendering 3D models in GLTF format.</li>
+                <li>Import TTFLoader for loading and parsing TrueType Fonts (TTF).</li>
+                <li>Import Font and TextGeometry for loading and generating 3D text meshes.</li>
+            </ul>              
         </p>
         <pre>
             <code class="language-js">
@@ -100,14 +108,16 @@
             </code>
         </pre>
     </section>
-    
+
     <section id="scene_and_camera">
         <h2>Setup Scene and Camera</h2>
         <p>
-            We create a new scene using the THREE.Scene() constructor.
-            <br>Create a perspective camera using THREE.PerspectiveCamera(), specifying the field of view, aspect ratio, near, and far clipping planes.
-            <br>We position the camera 50 units behind the scene's origin.
-            <br>Slightly raise the camera's position along the Y-axis to better view the scene's floor.
+            <ul>
+                <li>Create a new scene using the THREE.Scene() constructor.</li>
+                <li>Create a perspective camera using THREE.PerspectiveCamera(), specifying the field of view, aspect ratio, near, and far clipping planes.</li>
+                <li>Position the camera 50 units behind the scene's origin.</li>
+                <li>Slightly raise the camera's position along the Y-axis to better view the scene's floor.</li>
+            </ul>              
         </p>
         <pre>
             <code class="language-js">
@@ -125,10 +135,12 @@
     <section id="renderer">
         <h2>Setup renderer</h2>
         <p>
-            Here, we create a WebGL renderer using THREE.WebGLRenderer().
-            <br>Set the renderer's size to match the browser window's width and height.
-            <br>Set the renderer's background color to black with an opacity of 1.
-            <br>We append the renderer's DOM element to the body of the HTML document.
+            <ul>
+                <li>Create a WebGL renderer using THREE.WebGLRenderer().</li>
+                <li>Set the renderer's size to match the browser window's width and height.</li>
+                <li>Set the renderer's background color to black with an opacity of 1.</li>
+                <li>Append the renderer's DOM element to the body of the HTML document.</li>
+            </ul>              
         </p>
         <pre>
             <code class="language-js">
@@ -146,9 +158,11 @@
     <section id="orbit_controls">
         <h2>Add orbit controls</h2>
         <p>
-            We create an OrbitControls object to enable interactive camera controls using the mouse.
-            <br>We pass the camera and the renderer's DOM element as parameters to the OrbitControls constructor.
-            <br>This allows us to rotate, pan, and zoom the 3D scene using the mouse.
+            <ul>
+                <li>Create an OrbitControls object to enable interactive camera controls using the mouse.</li>
+                <li>Pass the camera and the renderer's DOM element as parameters to the OrbitControls constructor.</li>
+                <li>This allows us to rotate, pan, and zoom the 3D scene using the mouse.</li>
+            </ul>              
         </p>
         <pre>
             <code class="language-js">
@@ -161,12 +175,14 @@
     <section id="lights">
         <h2>Setup lights</h2>
         <p>
-            We create an ambient light using THREE.AmbientLight(), setting its color to white and intensity to 0.2.
-            <br>Add the ambient light to the scene using scene.add().
-            <br>Create a directional light using THREE.DirectionalLight(), setting its color to white and intensity to 1.
-            <br>Position the directional light using directionalLight.position.set(), placing it at coordinates (5, 5, 5).
-            <br>Enable shadow casting for the directional light using directionalLight.castShadow = true.
-            <br>Add the directional light to the scene using scene.add().
+            <ul>
+                <li>Create an ambient light using THREE.AmbientLight(), setting its color to white and intensity to 0.2.</li>
+                <li>Add the ambient light to the scene using scene.add().</li>
+                <li>Create a directional light using THREE.DirectionalLight(), setting its color to white and intensity to 1.</li>
+                <li>Position the directional light using directionalLight.position.set(), placing it at coordinates (5, 5, 5).</li>
+                <li>Enable shadow casting for the directional light using directionalLight.castShadow = true.</li>
+                <li>Add the directional light to the scene using scene.add().</li>
+            </ul>              
         </p>
         <pre>
             <code class="language-js">
@@ -186,12 +202,14 @@
     <section id="floor">
         <h2>Add Floor below the car</h2>
         <p>
-            Create a circular plane geometry using THREE.CircleGeometry() with radius 80 and segments 360.
-            <br>Load the floor texture using THREE.TextureLoader(), specifying the texture's URL.
-            <br>Create a basic material using THREE.MeshBasicMaterial() and apply the loaded texture.
-            <br>Combine the floor geometry and material into a mesh using THREE.Mesh().
-            <br>Position the floor mesh slightly below the car's position and rotate it to lie flat on the ground.
-            <br>Add the floor mesh to the scene using scene.add().
+            <ul>
+                <li>Create a circular plane geometry using THREE.CircleGeometry() with radius 80 and segments 360.</li>
+                <li>Load the floor texture using THREE.TextureLoader(), specifying the texture's URL.</li>
+                <li>Create a basic material using THREE.MeshBasicMaterial() and apply the loaded texture.</li>
+                <li>Combine the floor geometry and material into a mesh using THREE.Mesh().</li>
+                <li>Position the floor mesh slightly below the car's position and rotate it to lie flat on the ground.</li>
+                <li>Add the floor mesh to the scene using scene.add().</li>
+            </ul>              
         </p>
         <pre>
             <code class="language-js">
@@ -217,8 +235,10 @@
     <section id="car_loader">
         <h2>Create car loader</h2>
         <p>
-            Create a new instance of the GLTFLoader class using new GLTFLoader().
-            <br>Define the path to the car model file using the variable carPath, which in this case points to 'merc/scene.gltf'.
+            <ul>
+                <li>Create a new instance of the GLTFLoader class using new GLTFLoader().</li>
+                <li>Define the path to the car model file using the variable carPath, which in this case points to 'merc/scene.gltf'.</li>
+            </ul>              
         </p>
         <pre>
             <code class="language-js">
@@ -229,6 +249,259 @@
         </pre>
     </section>
 
-    
+    <section id="camera_position">
+        <h2>Setup camera position for car</h2>
+        <p>
+            <ul>
+                <li>Calculate the car's bounding box using THREE.Box3.</li>
+                <li>Extract the car's center coordinates from the bounding box.</li>
+                <li>Position the camera behind the car by adjusting its x, y, and z coordinates.</li>
+                <li>Optionally, set the orbit controls target to center on the car.</li>
+            </ul>
+        </p>
+        <pre>
+            <code class="language-js">
+                // changing the camera position for the car
+                function setCameraPositionForCar(car) {
+                    const boundingBox = new THREE.Box3().setFromObject(car);
+                    const center = boundingBox.getCenter(new THREE.Vector3());
+
+                    // Set the camera position based on the car's bounding box
+                    camera.position.copy(center);
+                    camera.position.z += boundingBox.max.z + 30;
+                    camera.position.y = 50;
+                    camera.position.x = -200;
+
+                    // Optionally, you can adjust the orbit controls target to center on the car
+                    controls.target.copy(center);
+                }
+            </code>
+        </pre>
+    </section>
+
+    <section id="load_car">
+        <h2>Load Car GLTF 3d Model</h2>
+        <p>
+            <ul>
+                <li>Use the GLTFLoader to load the car model from the specified URL.</li>
+                <li>Once the model is loaded, add it to the scene and update the camera position to focus on the car.</li>
+                <li>Display the rendered scene using the renderer.</li>
+                <li>Provide progress updates during loading.</li>
+                <li>Handle any loading errors.</li>
+            </ul>              
+        </p>
+        <pre>
+            <code class="language-js">
+                // Load the gltf 3d model of the car
+                loader.load(
+                    // resource URL
+                    carPath,
+                    // called when the resource is loaded
+                    (gltf) => {
+                        const car = gltf.scene;
+                        scene.add(car);
+                        setCameraPositionForCar(car);
+                        renderer.render(scene, camera);
+                    },
+                    // called while loading is progressing
+                    (xhr) => {
+                        console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+                    },
+                    // called when loading has errors
+                    (error) => {
+                        console.error('Error loading car', error);
+                    }
+                );
+            </code>
+        </pre>
+    </section>
+
+    <section id="logo_background">
+        <h2>Add scattered rotating logos background</h2>
+        <p>
+            <ul>
+                <li>Load the Mercedes logo 3D model from the specified URL.</li>
+                <li>Create multiple copies of the logo and position them randomly around the car.</li>
+                <li>Apply random rotation and scaling to each logo.</li>
+                <li>Add the logos to the scene and render the updated scene.</li>
+                <li>Handle any loading errors.</li>
+            </ul>              
+        </p>
+        <pre>
+            <code class="language-js">
+                // Load mercedes logo
+                const logoPath = 'logo/mercedes_logo/scene.gltf';
+
+                // multiple boxes
+                const spread = 500;
+                let logos = []
+
+                // loop 100 times to display 100 logos in random places around the car
+                for (let i = 0; i < 100; i++) {
+                    // Load the gltf 3d model of the mercedes logo
+                    loader.load(
+                        // resource URL
+                        logoPath,
+                        // called when the resource is loaded
+                        (gltf) => {
+                            const logo = gltf.scene;
+
+                            logo.position.x = (Math.random() - 0.5) * spread;
+                            logo.position.y = (Math.random() - 0.5) * spread;
+                            logo.position.z = (Math.random() - 0.5) * spread;
+                            logo.rotation.x = Math.random() * Math.PI;
+                            logo.rotation.y = Math.random() * Math.PI;
+                            const scale = Math.random() + 20;
+                            logo.scale.set(scale, scale, scale);
+                            logos.push(logo);
+                            scene.add(logo);
+                            
+                            renderer.render(scene, camera);
+                        },
+                        // called while loading is progressing
+                        (xhr) => {
+                            console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+                        },
+                        // called when loading has errors
+                        (error) => {
+                            console.error('Error loading logo', error);
+                        }
+                    );
+                }
+            </code>
+        </pre>
+    </section>
+
+    <section id="3d_text">
+        <h2>Add 3d text of car name</h2>
+        <p>
+            <ul>
+                <li>Load the Cardo-Regular.ttf font file using the TTFLoader.</li>
+                <li>Create 3D text geometry using the loaded font.</li>
+                <li>Create a red-colored standard material with 50% gloss.</li>
+                <li>Attach the geometry to a mesh and position it above the car.</li>
+                <li>Add a directional light to illuminate the text mesh.</li>
+                <li>You can download other fonts from <a href="https://fonts.google.com/">Google Fonts</a></li>
+            </ul>
+        </p>
+        <pre>
+            <code class="language-js">
+                // Load 3d text
+                const ttfLoader = new TTFLoader();
+
+                // Load the TTF font file from public/fonts directory
+                ttfLoader.load('fonts/Cardo-Regular.ttf', (fontData) => {
+                    // Convert the parsed fontData to the format Three.js understands
+                    const font = new Font(fontData);
+
+                    // Create the text geometry
+                    const textGeometry = new TextGeometry('G-Class', {
+                        font: font,
+                        size: 15,
+                        height: 5,
+                        curveSegments: 32,
+                        bevelEnabled: true,
+                        bevelThickness: 0.5,
+                        bevelSize: 0.5,
+                        bevelSegments: 8,
+                    });
+                    textGeometry.center();
+
+                    // Create a standard material with red color and 50% gloss
+                    const material = new THREE.MeshStandardMaterial({
+                        color: 'lightgrey',
+                        roughness: 0.5
+                    });
+
+                    // Geometries are attached to meshes so that they get rendered
+                    const textMesh = new THREE.Mesh(textGeometry, material);
+                    // Update positioning of the text
+                    textMesh.position.set(-60, 80, -40);
+                    textMesh.rotateY(-Math.PI * 0.25)
+                    scene.add(textMesh);
+
+                    // Add a directional light to illuminate the text mesh
+                    const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // White light
+                    directionalLight.position.set(5, 10, 5);
+                    scene.add(directionalLight);
+                });
+            </code>
+        </pre>
+    </section>
+
+    <section id="window_resize">
+        <h2>Maintain aspect ratio on window resize</h2>
+        <p>
+            <ul>
+                <li>Listen for window resize events.</li>
+                <li>When the window is resized, calculate the new width and height.</li>
+                <li>Update the camera's aspect ratio to match the new window dimensions.</li>
+                <li>Refresh the camera's projection matrix to apply the changes.</li>
+                <li>Resize the renderer to match the new window size.</li>
+            </ul>              
+        </p>
+        <pre>
+            <code class="language-js">
+                // Event listener for window resize events to ensure the scene adjusts to the new window dimensions
+                window.addEventListener('resize', () => {
+                    // Obtain the new width and height of the window
+                    const newWidth = window.innerWidth;
+                    const newHeight = window.innerHeight;
+
+                    // Adjust the camera's aspect ratio based on the new dimensions
+                    camera.aspect = newWidth / newHeight;
+
+                    // Update the camera's projection matrix to reflect the changes
+                    camera.updateProjectionMatrix();
+
+                    // Resize the renderer to match the new window dimensions
+                    renderer.setSize(newWidth, newHeight);
+                });
+            </code>
+        </pre>
+    </section>
+
+    <section id="animation">
+        <h2>Setup animation loop</h2>
+        <p>
+            <ul>
+                <li>Create a Clock object to track time for animations.</li>
+                <li>Define an animation loop function that updates the scene.</li>
+                <li>Inside the animation loop, calculate the elapsed time since the animation started.</li>
+                <li>Update the rotation of all logos based on the elapsed time.</li>
+                <li>Render the updated scene and request the next animation frame.</li>
+            </ul>              
+        </p>
+        <pre>
+            <code class="language-js">
+                // Create a new Clock object to manage time-related functionality for animations
+                const clock = new THREE.Clock();
+
+                // setup animation loop
+                function animate() {
+                    // Calculate the elapsed time since the start of the animation using the Clock object
+                    const elapsedTime = clock.getElapsedTime();
+
+                    // change rotation of all logos
+                    logos.forEach((logo) => {
+                        logo.rotation.x = elapsedTime;
+                        logo.rotation.y = elapsedTime;
+                    });
+
+                    // Updates the controls to handle user input.
+                    controls.update();
+
+                    // Renders the scene using the specified camera and renderer. 
+                    renderer.render(scene, camera);
+
+                    // Requests the next animation frame to create a continuous loop. 
+                    requestAnimationFrame(animate);
+                }
+
+                animate();
+            </code>
+        </pre>
+    </section>
 </body>
+
 </html>
