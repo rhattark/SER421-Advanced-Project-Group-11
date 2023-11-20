@@ -4,6 +4,8 @@
 <head>
     <meta charset="utf-8" />
     <title>Basic car product website</title>
+    <link href="../prism.css" rel="stylesheet">
+    <script src="../prism.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -26,6 +28,247 @@
 </head>
 <body>
     <h1>Build a basic car product website using HTML and CSS</h1>
-    <h2>Use HTML and CSS</h2>
+    <section id="doc-type">
+        <h2>Document Type Declaration (DOCTYPE)</h2>
+        <p>
+            This declaration defines the document type and version of HTML being used. In this case, it's HTML5.
+        </p>
+        <pre>
+            <code class="language-html">
+                &lt;!DOCTYPE html&gt;
+            </code>
+        </pre>
+    </section>
+
+    <section id="doc-struc">
+        <h2>HTML Document Structure</h2>
+        <p>
+            The <html> element is the root element of the HTML document. The lang attribute specifies the language of the document.
+        </p>
+        <pre>
+            <code class="language-html">
+                &lt;html lang="en"&gt;
+            </code>
+        </pre>
+    </section>
+
+    <section id="head-section">
+        <h2>Head Section</h2>
+        <p>
+            This section is for defining the document's metadata and linking external resources.
+        </p>
+        <pre>
+            <code class="language-html">
+                &lt;head&gt;
+                    &lt;meta charset="utf-8"&gt; &lt;!-- Specifies the character encoding for the document (UTF-8) --&gt;
+                    &lt;title&gt;Product Website&lt;/title&gt; &lt;!--Sets the title of the webpage displayed in the browser--&gt;
+                    &lt;link rel="stylesheet" href="styles.css"&gt;  &lt;!--Links an external CSS file ("styles.css") to style the HTML document--&gt;
+                &lt;/head&gt;                
+            </code>
+        </pre>
+    </section>
+
+    <section id="body-section">
+        <h2>Body Section</h2>
+        <p>
+            The &lt;body&gt; element contains the content of the HTML document.
+        </p>
+        <pre>
+            <code class="language-html">
+                &lt;body&gt;
+                    <!-- Content goes here -->
+                &lt;/body&gt;
+            </code>
+        </pre>
+    </section>
+
+    <section id="header-section">
+        <h2>Header Section</h2>
+        <p>
+            The &lt;header&gt; section typically contains introductory content. In this case, it includes a main heading (&lt;h1&gt;) and a paragraph (&lt;p&gt;).
+        </p>
+        <pre>
+            <code class="language-html">
+                &lt;header&gt;
+                    &lt;h1&gt;Product Website&lt;/h1&gt;
+                    &lt;p&gt;3D Car Model&lt;/p&gt;
+                &lt;/header&gt;
+            </code>
+        </pre>
+    </section>
+
+    <section id="nav-section">
+        <h2>Navigation Section</h2>
+        <p>
+            The &lt;nav&gt; element contains navigation links. It includes an unordered list (&lt;ul&gt;) with list items (&lt;li&gt;) containing anchor links (&lt;a&gt;).
+        </p>
+        <pre>
+            <code class="language-html">
+                &lt;nav&gt;
+                    &lt;ul&gt;
+                        <!-- Navigation links go here -->
+                    &lt;/ul&gt;
+                &lt;/nav&gt;
+            </code>
+        </pre>
+    </section>
+
+    <section id="image-container-section">
+        <h2>Image Container Section</h2>
+        <p>
+            This section contains an image (&lt;img&gt;) within a &lt;div&gt; with the ID "imageContainer". The alt attribute provides alternative text for accessibility.
+        </p>
+        <pre>
+            <code class="language-html">
+                &lt;div id="imageContainer"&gt;
+                    &lt;img src="Car.png" alt="G-class"&gt;
+                &lt;/div&gt;
+            </code>
+        </pre>
+    </section>
+
+    <section id="car-models-section">
+        <h2>Car Models Section</h2>
+        <p>
+            A section with the ID "car-models" contains information about different car models, including a heading (&lt;h2&gt;), a paragraph (&lt;p&gt;), and an unordered list (&lt;ul&gt;).
+        </p>
+        <pre>
+            <code class="language-html">
+                &lt;section id="car-models"&gt;
+                    &lt;h2&gt;Car Models&lt;/h2&gt;
+                    &lt;p&gt;Discover our diverse range...&lt;/p&gt;
+                    &lt;ul&gt;
+                        &lt;li&gt;Sedan&lt;/li&gt;
+                        &lt;li&gt;SUV&lt;/li&gt;
+                        &lt;li&gt;Hatchback&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/section&gt;
+            </code>
+        </pre>
+    </section>
+
+    <section id="car-configuration-section">
+        <h2>Car Configuration Section</h2>
+        <p>
+            This section provides information about car configuration, including interior and exterior features.
+        </p>
+        <pre>
+            <code class="language-html">
+                &lt;section id="car-configuration"&gt;
+                    &lt;h2&gt;Car Configuration&lt;/h2&gt;
+                    &lt;div&gt;
+                        &lt;h3&gt;Interior Features&lt;/h3&gt;
+                        &lt;p&gt;Indulge in luxury with our top-notch interior features...&lt;/p&gt;
+                    &lt;/div&gt;
+                    &lt;div&gt;
+                        &lt;h3&gt;Exterior Options&lt;/h3&gt;
+                        &lt;p&gt;Personalize your vehicle with a variety of exterior options...&lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;/section&gt;
+            </code>
+        </pre>
+    </section>
+
+    <section id="car-configuration-section">
+        <h2>Car Configuration Section</h2>
+        <p>
+            This section provides information about car configuration, including interior and exterior features.
+        </p>
+        <pre>
+            <code class="language-html">
+                &lt;section id="car-configuration"&gt;
+                    &lt;h2&gt;Car Configuration&lt;/h2&gt;
+                    &lt;div&gt;
+                        &lt;h3&gt;Interior Features&lt;/h3&gt;
+                        &lt;p&gt;Indulge in luxury with our top-notch interior features...&lt;/p&gt;
+                    &lt;/div&gt;
+                    &lt;div&gt;
+                        &lt;h3&gt;Exterior Options&lt;/h3&gt;
+                        &lt;p&gt;Personalize your vehicle with a variety of exterior options...&lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;/section&gt;
+            </code>
+        </pre>
+    </section>
+
+    <section id="car-features-section">
+        <h2>Car Features Section</h2>
+        <p>
+            This section lists various advanced features of the car.
+        </p>
+        <pre>
+            <code class="language-html">
+                &lt;section id="car-features"&gt;
+                    &lt;h2&gt;Car Features&lt;/h2&gt;
+                    &lt;ul&gt;
+                        &lt;li&gt;Advanced GPS Navigation System&lt;/li&gt;
+                        &lt;li&gt;Smart Cruise Control for a Relaxing Drive&lt;/li&gt;
+                        &lt;li&gt;Intelligent Collision Detection and Avoidance&lt;/li&gt;
+                        &lt;li&gt;Luxurious Leather Interior with Heated Seats&lt;/li&gt;
+                        &lt;li&gt;High-Performance Engine with Eco-Friendly Options&lt;/li&gt;
+                    &lt;/ul&gt;
+                    &lt;p&gt;Explore the cutting-edge features that set our cars apart...&lt;/p&gt;
+                &lt;/section&gt;
+            </code>
+        </pre>
+    </section>
+
+    <section id="footer-section">
+        <h2>Footer Section</h2>
+        <p>
+            The &lt;footer&gt; section typically contains footer content. In this case, it includes a copyright notice.
+        </p>
+        <pre>
+            <code class="language-html">
+                &lt;footer&gt;
+                    &lt;p&gt;&copy; SER 421 Project &lt;/p&gt;
+                &lt;/footer&gt;
+            </code>
+        </pre>
+    </section>
+
+    <section id="javascript-script-section">
+        <h2>JavaScript Script</h2>
+        <p>
+            The &lt;script&gt; element includes JavaScript code that enables smooth scrolling when clicking on anchor links within the document.
+        </p>
+        <pre>
+            <code class="language-html">
+                &lt;script&gt;
+                    // JavaScript code for smooth scrolling when clicking on anchor links
+                &lt;/script&gt;
+            </code>
+        </pre>
+    </section>
+
+    <section id="smooth-scrolling-script-section">
+        <h2>Smooth Scrolling JavaScript</h2>
+        <pre>
+            <code class="language-js">
+                // Select all anchor links with href starting with "#"
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    // Add a click event listener to each anchor link
+                    anchor.addEventListener('click', function (e) {
+                        // Prevent the default behavior of the anchor link
+                        e.preventDefault();
+        
+                        // Scroll to the target element with the matching ID
+                        document.querySelector(this.getAttribute('href')).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    });
+                });
+            </code>
+        </pre>
+
+        <p>
+            This code provides smooth scrolling behavior when clicking on anchor links that reference sections within the same HTML document.<br>
+            It targets anchor links with href attributes starting with "#", assuming they are meant to scroll to elements with corresponding IDs.<br>
+            The smooth scrolling effect is achieved by using scrollIntoView with the option behavior: 'smooth'.<br>
+            The e.preventDefault() ensures that clicking on the anchor link doesn't trigger the default navigation behavior.<br>
+        </p>
+
+    </section>
+    
 </body>
 </html>
