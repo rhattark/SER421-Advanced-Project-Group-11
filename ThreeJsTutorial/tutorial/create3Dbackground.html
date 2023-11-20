@@ -111,7 +111,7 @@
         </pre>
     </section>
 
-    <section id="logo">
+    <section id="logo_loader">
         <h2>Load Logo</h2>
         <p>
             The GLTFLoader is set up to load 3D models in the GLTF format. The path to the Mercedes logo model is specified.
@@ -121,6 +121,53 @@
                 // Load logo
                 const loader = new GLTFLoader();
                 const logoPath = 'logo/mercedes_logo/scene.gltf';
+            </code>
+        </pre>
+    </section>
+
+    <section id="multiple_logos">
+        <h2>Scatter multiple logos in random position</h2>
+        <p>
+            A loop is used to load multiple instances of the Mercedes logo model. Each logo is placed at a random position, rotated randomly, and scaled randomly. Loading progress and errors are logged.
+        </p>
+        <pre>
+            <code class="language-js">
+                // multiple boxes
+                const spread = 500;
+                let logos = []
+
+                // loop 100 times to display 100 logos in random places around the car
+                for (let i = 0; i < 100; i++) {
+                    // Load the gltf 3d model of the mercedes logo
+                    loader.load(
+                        // resource URL
+                        logoPath,
+                        // called when the resource is loaded
+                        (gltf) => {
+                            const logo = gltf.scene;
+
+                            logo.position.x = (Math.random() - 0.5) * spread;
+                            logo.position.y = (Math.random() - 0.5) * spread;
+                            logo.position.z = (Math.random() - 0.5) * spread;
+                            logo.rotation.x = Math.random() * Math.PI;
+                            logo.rotation.y = Math.random() * Math.PI;
+                            const scale = Math.random() + 20;
+                            logo.scale.set(scale, scale, scale);
+                            logos.push(logo);
+                            scene.add(logo);
+                            
+                            renderer.render(scene, camera);
+                        },
+                        // called while loading is progressing
+                        (xhr) => {
+                            console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+                        },
+                        // called when loading has errors
+                        (error) => {
+                            console.error('Error loading logo', error);
+                        }
+                    );
+                }
             </code>
         </pre>
     </section>
