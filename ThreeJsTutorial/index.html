@@ -1,13 +1,160 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<title>My first three.js app</title>
-		<style>
-			body { margin: 0; }
-		</style>
-	</head>
-	<body>
-		<script type="module" src="/main.js"></script>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2D & 3D Rendering using three.js</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        h2 {
+            color: #007BFF;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>2D & 3D Rendering using three.js</h1>
+    <h2>Table of Contents</h2>
+    <table>
+        <tr>
+            <th>Tutorial</th>
+        </tr>
+        <tr>
+            <td><a href="#section1">Learning Outcomes</a></td>
+        </tr>
+        <tr>
+            <td><a href="#section2">Learning Activities</a></td>
+        </tr>
+        <tr>
+            <td><a href="#section3">Summary</a></td>
+        </tr>
+        <tr>
+            <td><a href="#section4">Analytics</a></td>
+        </tr>
+        <tr>
+            <td><a href="#section5">Resources</a></td>
+        </tr>
+    </table>
+
+    <section id="section1">
+        <h2>Learning Outcomes</h2>
+        <p>
+            By the end of this tutorial, the student should be able to: <br />
+            <ul>
+                <li>Create a basic webpage</li>
+                <li>Understand the basic concepts of three.js</li>
+                <li>Render a 3D object on the webpage</li>
+                <li>Combine all the concepts to build a car product website</li>
+            </ul>
+        </p>
+    </section>
+
+    <section id="section2">
+        <h2>Learning Activities</h2>
+        <p>
+            <ul>
+                <li><a href="tutorial/basicWebpage.html">Build a basic car product website using HTML and CSS </a></li>
+                <li><a href="tutorial/create3Dmodel.html">Learn to import gltf 3D model in three.js and create a car model with a platform</a></li>
+                <li><a href="tutorial/create3Dbackground.html">Create a 3D background with rotating logos </a></li>
+                <li><a href="tutorial/create3Dtext.html">Add 3D text with car name </a></li>
+                <li><a href="tutorial/combine3Daspects.html">Combine all 3D aspects in one page</a></li>
+                <li><a href="tutorial/add3Dscene.html">Add the 3D scene in product website</a></li>
+            </ul>
+        </p>
+    </section>
+
+    <section id="section3">
+        <h2>Summary</h2>
+        <p>
+            2D rendering on the early web was mainly based on HTML for structure and CSS for styling.
+            This made it possible to present the content in a simple layout. 2D web rendering was greatly enhanced by introducing the canvas element and the Canvas API in HTML5.
+            JavaScript allowed programmers to create dynamic graphics, allowing for more engaging and aesthetically pleasing online applications.
+            SVG is a vector image format that supports 2D graphics and is based on XML. It makes it possible to produce interactive and scalable graphics for the Internet.
+            For vector graphics on the web, SVG has become the standard.<br />
+
+            The industry standard that emerged for rendering 3D graphics in web browsers is called WebGL (Web Graphics Library).
+            It is an OpenGL ES-based JavaScript API that lets programmers make 3D visuals that can be rendered in the browser without plugins.
+            Specifically, the Khronos Group supports WebGL. <br />
+            <br />
+
+            Standard Organizations:<br />
+            <ul>
+                <li>
+                    World Wide Web Consortium (W3C): W3C has created and upheld web technology standards.
+                    Among the standards that W3C develops and maintains are HTML, CSS, and SVG.
+                </li>
+                <li>
+                    The Khronos Group is an alliance of businesses that work together to develop open-standard APIs for parallel computing and graphics.
+                    One such standard created by the Khronos Group is WebGL.
+                </li>
+            </ul>
+            <br />
+            Adopted standards:<br />
+            <ul>
+                <li>
+                    WebGPU: Developed by the W3C and GPU for the Web Community Group, WebGPU is an emerging standard.
+                    With its low-level, contemporary API, it hopes to make it easier for developers to take advantage of the power of contemporary GPUs when creating 2D and 3D graphics for the web.
+                </li>
+                <li>
+                    WebAssembly (Wasm): Although not strictly speaking a graphics standard, WebAssembly has affected web rendering by enabling languages other than JavaScript for tasks requiring high performance.
+                    This makes it possible to use languages for graphics-intensive applications like C++ and Rust.
+                </li>
+            </ul>
+            <br />
+            In conclusion, standards and technologies have evolved over the history of 2D and 3D rendering on the web, with important roles played by HTML, CSS, SVG, WebGL, WebGPU, and WebAssembly. 
+            Among the standards organizations advancing these technologies' development are W3C and Khronos Group.
+        </p>
+    </section>
+
+    <section id="section4">
+        <h2>Analytics</h2>
+        <p>Explore the use of lights and materials to enhance your 3D scenes.</p>
+    </section>
+
+    <section id="section5">
+        <h2>Resources</h2>
+        <p>Discover advanced techniques for more complex 3D rendering with three.js.</p>
+    </section>
+
+</body>
 </html>
